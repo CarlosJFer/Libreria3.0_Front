@@ -1,24 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
-const productos = [
-  { id: 1, title: "Cien años de soledad" },
-  { id: 2, title: "Don Quijote de la Mancha" },
-  { id: 3, title: "El Principito" },
-  { id: 4, title: "Crónica de una muerte anunciada" },
-  { id: 5, title: "1984" },
-];
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 function Detalle() {
   const { id } = useParams();
-
-  console.log(id);
-  const producto = productos.find((p) => p.id === parseInt(id));
-  console.log(producto);
+  const users = useSelector((state) => state.users);
+  const user = users.find((user) => user.id === parseInt(id));
+  console.log(user);
   return (
     <div>
-      <p>DETALLE</p>
-      <p>Titulo: {producto.title}</p>
+      <img src={user.avatar} alt="avatar" width="200px" height="240px" />
+      <h2>{user.name}</h2>
+      <h3>{user.role}</h3>
+      <h3>{user.email}</h3>
     </div>
   );
 }
