@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: #888;
+  background-color: hsl(247, 89%, 28%);
 }
 .active {
   color: red;
@@ -40,10 +40,18 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
+}
+
+.delete {
+  background-color: rgb(167, 18, 18);
+  color: white;
+  font-size: 10px;
+}
+
+.edit {
+  background-color: rgb(20, 138, 211);
+  color: white;
+  font-size: 10px;
 }
