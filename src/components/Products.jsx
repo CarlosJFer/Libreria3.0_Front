@@ -28,24 +28,33 @@ function Products() {
   };
 
   const handlerEdit = (product) => {
-    console.log("Edit Product ID:", product._id); // Añade esto para verificar el ID
     navigate(`/post-form/${product._id}`);
   };
 
   return (
-    <div>
-      <Link to="/">Volver</Link>
+    <div className="container">
+      <Link to="/" className="btn btn-primary my-3">
+        Volver
+      </Link>
       <h2>Products</h2>
       {products.map((product) => (
-        <div className="card" key={product._id} id={product._id}>
-          <h3>{product.titulo}</h3>
-          <p>{product.genero}</p>
-          <button onClick={() => handlerDelete(product._id)} className="delete">
-            Borrar
-          </button>
-          <button onClick={() => handlerEdit(product)} className="edit">
-            Editar
-          </button>
+        <div className="card my-3" key={product._id} id={product._id}>
+          <div className="card-body">
+            <h3 className="card-title">{product.titulo}</h3>
+            <p className="card-text">{product.genero}</p>
+            <button
+              onClick={() => handlerDelete(product._id)}
+              className="btn btn-danger mr-2"
+            >
+              Borrar
+            </button>
+            <button
+              onClick={() => handlerEdit(product)}
+              className="btn btn-warning"
+            >
+              Editar
+            </button>
+          </div>
         </div>
       ))}
     </div>

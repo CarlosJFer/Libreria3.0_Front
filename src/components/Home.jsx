@@ -27,6 +27,7 @@ function Home() {
         <Link to={`/post-form/${product._id}`}>
           <button>Nuevo Libro</button>
         </Link> */}
+
         <Link to={`/post-form`}>
           <button>Nuevo Libro</button>
         </Link>
