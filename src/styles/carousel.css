@@ -1,8 +1,10 @@
 .carousel {
   margin: 80px auto; /* Centra horizontalmente y ajusta el margen superior */
   background-color: #d6c314;
-  width: 60%;
-  position: relative; /* Cambia a relativo para evitar problemas con fixed */
+  width: 70%;
+  position: absolute; /* Cambia a relativo para evitar problemas con fixed */
+  overflow: visible;
+  z-index: 1;
 }
 
 .carousel-item img {

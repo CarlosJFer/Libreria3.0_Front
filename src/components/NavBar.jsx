@@ -3,7 +3,7 @@ import "../styles/NavBar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top p-2">
       <div className="container">
         <NavLink className="navbar-brand" to="/">
           <span>Librería</span> 3.0
@@ -22,13 +22,13 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">
-                INICIAR SESIÓN
+              <NavLink className="nav-link" to="/login">
+                Iniciar sesión
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">
-                REGISTRAR
+              <NavLink className="nav-link" to="/register">
+                Registrar
               </NavLink>
             </li>
             <li className="nav-item">

@@ -1,6 +1,5 @@
 .navbar {
   background-color: #003366;
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000; /* Asegura que el navbar se mantenga en el frente */

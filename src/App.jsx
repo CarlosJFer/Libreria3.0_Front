@@ -19,58 +19,10 @@ import PaginaCatalogo from "./components/PaginaCatalogo";
 import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [books, setBooks] = useState([
-    {
-      id: 1,
-      title: "En la punta del mapa",
-      author: "Comino, Sandra",
-      cover: "path/to/cover1.jpg",
-      price: "$9,000.00",
-    },
-    {
-      id: 2,
-      title: "Yoga para niños",
-      author: "Maleh, Mariela",
-      cover: "path/to/cover2.jpg",
-      price: "$22,900.00",
-    },
-    {
-      id: 3,
-      title: "Integrar el círculo",
-      author: "Oyhanarte, Rosario",
-      cover: "path/to/cover3.jpg",
-      price: "$29,000.00",
-    },
-    {
-      id: 4,
-      title: "Romper el círculo",
-      author: "Hoover, Colleen",
-      cover: "path/to/cover4.jpg",
-      price: "$18,900.00",
-    },
-    {
-      id: 5,
-      title: "La hora azul",
-      author: "Hawkins, Paula",
-      cover: "path/to/cover5.jpg",
-      price: "$32,900.00",
-    },
-    {
-      id: 6,
-      title: "Historias inconscientes",
-      author: "Rolón, Gabriel",
-      cover: "path/to/cover6.jpg",
-      price: "$33,800.00",
-    },
-  ]);
   return (
     <>
       <NavBar></NavBar>
-      <Carousel books={books} />
 
-      <PaginaCatalogo />
-      <Footer></Footer>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />{" "}
@@ -84,6 +36,7 @@ function App() {
         <Route path="/detalle/:id" element={<Detalle />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
+      <Footer></Footer>
     </>
   );
 }

@@ -1,11 +1,12 @@
 #root {
   max-width: 100%;
-  width: 80%;
+  width: 70%;
   margin: auto auto;
   text-align: center;
   background-color: rgb(255, 255, 255);
   border-color: #c71c1c;
   border-radius: 0.5px;
+  overflow: visible;
 }
 
 .active {

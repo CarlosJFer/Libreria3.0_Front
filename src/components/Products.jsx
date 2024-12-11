@@ -31,30 +31,52 @@ function Products() {
     navigate(`/post-form/${product._id}`);
   };
 
+  // Función para agrupar productos en filas de tres
+  const groupProductsInRows = (products) => {
+    const rows = [];
+    for (let i = 0; i < products.length; i += 3) {
+      rows.push(products.slice(i, i + 3));
+    }
+    return rows;
+  };
+
+  const productRows = groupProductsInRows(products);
+
   return (
     <div className="container">
       <Link to="/" className="btn btn-primary my-3">
         Volver
       </Link>
       <h2>Products</h2>
-      {products.map((product) => (
-        <div className="card my-3" key={product._id} id={product._id}>
-          <div className="card-body">
-            <h3 className="card-title">{product.titulo}</h3>
-            <p className="card-text">{product.genero}</p>
-            <button
-              onClick={() => handlerDelete(product._id)}
-              className="btn btn-danger mr-2"
+      {productRows.map((row, rowIndex) => (
+        <div className="row" key={rowIndex}>
+          {row.map((product) => (
+            <div
+              className="col-md-4 d-flex align-items-stretch"
+              key={product._id}
             >
-              Borrar
-            </button>
-            <button
-              onClick={() => handlerEdit(product)}
-              className="btn btn-warning"
-            >
-              Editar
-            </button>
-          </div>
+              <div className="card my-3 w-100" id={product._id}>
+                <div className="card-body d-flex flex-column">
+                  <h3 className="card-title">{product.titulo}</h3>
+                  <p className="card-text">{product.genero}</p>
+                  <div className="mt-auto">
+                    <button
+                      onClick={() => handlerDelete(product._id)}
+                      className="btn btn-danger mr-2"
+                    >
+                      Borrar
+                    </button>
+                    <button
+                      onClick={() => handlerEdit(product)}
+                      className="btn btn-warning"
+                    >
+                      Editar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ))}
     </div>
