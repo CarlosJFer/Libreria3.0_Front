@@ -7,7 +7,8 @@ function Card(props) {
     <div className="card">
       <Link to={`/detalle/${id}`}>
         <img src={avatar} alt="avatar" width="100px" height="120px" />
-        <h2>{name}</h2>
+        <h4>{name}</h4>
+        <p>{name}</p>
       </Link>
     </div>
   );

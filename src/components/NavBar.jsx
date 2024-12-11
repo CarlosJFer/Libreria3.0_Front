@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
+import LogoutButton from "./LogoutButton";
 
 function Navbar() {
   return (
@@ -50,6 +51,9 @@ function Navbar() {
               <NavLink className="nav-link" to="/detalle">
                 Detalle
               </NavLink>
+            </li>
+            <li className="nav-item">
+              <LogoutButton />
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">

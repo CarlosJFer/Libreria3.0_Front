@@ -17,6 +17,7 @@ import NavBar from "./components/NavBar";
 import Carousel from "./components/Carousel";
 import PaginaCatalogo from "./components/PaginaCatalogo";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -25,11 +26,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<Home />} />
         <Route path="/users" element={<Users />} />{" "}
         <Route path="/posts" element={<Posts />} />{" "}
         <Route path="/post-form/:id" element={<PostForm />} />
         <Route path="/post-form" element={<PostForm />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/componente2" element={<Componente2 />}>
           <Route index element={<Componente />} />
         </Route>

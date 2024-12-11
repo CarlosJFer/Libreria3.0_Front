@@ -20,15 +20,3 @@
 .read-the-docs {
   color: #888;
 }
-
-.delete {
-  background-color: rgb(167, 18, 18);
-  color: white;
-  font-size: 10px;
-}
-
-.edit {
-  background-color: rgb(20, 138, 211);
-  color: white;
-  font-size: 10px;
-}

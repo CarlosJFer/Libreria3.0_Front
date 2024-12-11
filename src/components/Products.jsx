@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../redux/productsSlice";
 import { useEffect } from "react";
 
-function Products() {
+function Products({ selectedGenres }) {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +31,12 @@ function Products() {
     navigate(`/post-form/${product._id}`);
   };
 
-  // Función para agrupar productos en filas de tres
+  // Filtrar productos según géneros seleccionados
+  const filteredProducts = selectedGenres.length
+    ? products.filter((product) => selectedGenres.includes(product.genero))
+    : products;
+
+  // Agrupar productos en filas de tres
   const groupProductsInRows = (products) => {
     const rows = [];
     for (let i = 0; i < products.length; i += 3) {
@@ -40,13 +45,10 @@ function Products() {
     return rows;
   };
 
-  const productRows = groupProductsInRows(products);
+  const productRows = groupProductsInRows(filteredProducts);
 
   return (
-    <div className="container">
-      <Link to="/" className="btn btn-primary my-3">
-        Volver
-      </Link>
+    <div className="container p-2 m-2">
       <h2>Products</h2>
       {productRows.map((row, rowIndex) => (
         <div className="row" key={rowIndex}>
@@ -57,20 +59,27 @@ function Products() {
             >
               <div className="card my-3 w-100" id={product._id}>
                 <div className="card-body d-flex flex-column">
-                  <h3 className="card-title">{product.titulo}</h3>
+                  <p className="card-title fw-bolder">{product.titulo}</p>
                   <p className="card-text">{product.genero}</p>
-                  <div className="mt-auto">
+                  <p className="card-text">${product.precio}</p>
+                  <div className=" row mt-auto">
                     <button
                       onClick={() => handlerDelete(product._id)}
-                      className="btn btn-danger mr-2"
+                      className=" btn btn-outline-danger"
                     >
                       Borrar
                     </button>
                     <button
                       onClick={() => handlerEdit(product)}
-                      className="btn btn-warning"
+                      className=" btn btn-outline-primary"
                     >
                       Editar
+                    </button>
+                    <button
+                      onClick={() => handlerEdit(product)}
+                      className=" btn btn-success"
+                    >
+                      Comprar
                     </button>
                   </div>
                 </div>
