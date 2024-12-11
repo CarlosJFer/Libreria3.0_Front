@@ -1,0 +1,19 @@
+.container {
+  position: fixed;
+  z-index: 10; /* Asegura que esté por encima del carousel */
+  background-color: #fff; /* Asegura que tenga un fondo sólido */
+}
+
+.border {
+  background-color: #fff; /* Para evitar que elementos detrás se vean */
+}
+
+.col-md-8 {
+  position: relative;
+  z-index: 1;
+}
+
+.col-md-4 {
+  position: relative;
+  z-index: 1;
+}

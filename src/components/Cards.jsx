@@ -8,7 +8,14 @@ function Cards() {
   return (
     <div className="cards">
       {users.map((user) => {
-        return <Card1 key={user.id} name={user.name} avatar={user.avatar} />;
+        return (
+          <Card1
+            key={user._id}
+            id={user.id}
+            name={user.name}
+            avatar={user.avatar}
+          />
+        );
       })}
     </div>
   );
