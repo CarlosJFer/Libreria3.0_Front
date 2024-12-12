@@ -8,10 +8,10 @@ function Detalle() {
   console.log(user);
   return (
     <div>
-      <img src={user.avatar} alt="avatar" width="200px" height="240px" />
+      {/* <img src={user.avatar} alt="avatar" width="200px" height="240px" />
       <h2>{user.name}</h2>
       <h3>{user.role}</h3>
-      <h3>{user.email}</h3>
+      <h3>{user.email}</h3> */}
     </div>
   );
 }

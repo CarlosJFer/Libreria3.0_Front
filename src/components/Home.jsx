@@ -6,6 +6,8 @@ import { Link, NavLink } from "react-router-dom";
 import Cards from "./Cards";
 import PaginaCatalogo from "./PaginaCatalogo";
 import Carousel from "./Carousel";
+import Users from "./Users";
+import OrderList from "./OrderList";
 
 function Home() {
   const dispatch = useDispatch();
@@ -25,6 +27,8 @@ function Home() {
     <div>
       <Carousel books={books} />
       <PaginaCatalogo />
+      <Users></Users>
+      <OrderList></OrderList>
 
       <div>
         <Link to="/users">
@@ -39,7 +43,6 @@ function Home() {
           <button>Nuevo Libro</button>
         </Link> */}
       </div>
-      <Cards></Cards>
     </div>
   );
 }

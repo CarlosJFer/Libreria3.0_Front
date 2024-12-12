@@ -1,32 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/authSlice";
 
-function Login({ isAuthenticated, setIsAuthenticated }) {
+function Register() {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
-      const { token, user } = response.data;
-      localStorage.setItem("token", token);
-      dispatch(setUser(user));
-      navigate(`/${user._id}`);
+      await axios.post("http://localhost:3000/api/auth/register", {
+        name,
+        username,
+        email,
+        password,
+      });
+      alert("Registro exitoso. Ahora puedes iniciar sesión.");
+      navigate("/login");
     } catch (err) {
       console.error(err);
-      alert("Credenciales incorrectas o error de red");
+      alert("Error en el registro. Inténtalo de nuevo.");
     }
   };
 
@@ -36,8 +32,32 @@ function Login({ isAuthenticated, setIsAuthenticated }) {
         <div className="col-md-6">
           <div className="card shadow border-0 rounded">
             <div className="card-body p-5">
-              <h2 className="text-center mb-4">Iniciar Sesión</h2>
-              <form onSubmit={handleLogin}>
+              <h2 className="text-center mb-4">Registrarse</h2>
+              <form onSubmit={handleRegister}>
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    placeholder="Nombre Completo"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="name">Nombre Completo</label>
+                </div>
+                <div className="form-floating mb-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="username"
+                    placeholder="Nombre de Usuario"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="username">Nombre de Usuario</label>
+                </div>
                 <div className="form-floating mb-3">
                   <input
                     type="email"
@@ -63,7 +83,7 @@ function Login({ isAuthenticated, setIsAuthenticated }) {
                   <label htmlFor="password">Contraseña</label>
                 </div>
                 <button type="submit" className="btn btn-primary w-100 py-2">
-                  Iniciar Sesión
+                  Registrarse
                 </button>
               </form>
             </div>
@@ -74,4 +94,4 @@ function Login({ isAuthenticated, setIsAuthenticated }) {
   );
 }
 
-export default Login;
+export default Register;
