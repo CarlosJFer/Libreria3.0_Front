@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <div className="app shadow ">
+      <div className="app shadow mt-0">
         <NavBar></NavBar>
 
         <Routes>
