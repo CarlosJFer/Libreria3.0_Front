@@ -53,6 +53,11 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to="/profile">
+                Perfil
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <LogoutButton />
             </li>
           </ul>
