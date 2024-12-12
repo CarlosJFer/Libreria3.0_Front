@@ -37,7 +37,7 @@ function PaginaCatalogo() {
         </div>
       </div>
       <div className="row d-flex justify-content-center  ">
-        <div className="col-3 border border-2 text-left p-5 ">
+        <div className="col-3 border border-2 text-left  ">
           <div className="rounded border border-2 m-2 pb-2 ">
             <div className="card-header  rounded p-2 bg-light text-dark text-center">
               <h5>Géneros</h5>
