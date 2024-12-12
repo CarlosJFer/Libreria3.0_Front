@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LIBRERIA 3.0</title>
-    <link
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pago Exitoso</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="contenedor">
+    <h1>Pago Exitoso</h1>
+    <p>¡Felicitaciones! Su pago ha sido procesado con éxito.</p>
+    <p>Detalles del pago:</p>
+    <ul>
+    <li>Fecha: <span id="fecha"></span></li>
+    <li>Monto: <span id="monto"></span></li>
+    <li>Método de pago: <span id="metodo-pago"></span></li>
+    </ul>
+    <button id="boton-volver">Volver a la tienda</button>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
