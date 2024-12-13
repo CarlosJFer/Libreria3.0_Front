@@ -2,9 +2,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../redux/productsSlice";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
-function Products({ selectedGenres }) {
+function Products({ selectedGenres, searchQuery }) {
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,10 +33,17 @@ function Products({ selectedGenres }) {
     navigate(`/post-form/${product._id}`);
   };
 
-  // Filtrar productos según géneros seleccionados
-  const filteredProducts = selectedGenres.length
-    ? products.filter((product) => selectedGenres.includes(product.genero))
-    : products;
+  // Filtrar productos según géneros seleccionados y consulta de búsqueda
+  const filteredProducts = products.filter((product) => {
+    const matchesGenre = selectedGenres.length
+      ? selectedGenres.includes(product.genero)
+      : true;
+    const query = searchQuery.toString().toLowerCase();
+    const matchesSearchQuery =
+      product.titulo.toLowerCase().includes(query) ||
+      product.autor.toLowerCase().includes(query);
+    return matchesGenre && matchesSearchQuery;
+  });
 
   // Agrupar productos en filas de tres
   const groupProductsInRows = (products) => {
@@ -63,24 +72,30 @@ function Products({ selectedGenres }) {
                   <p className="card-text">{product.genero}</p>
                   <p className="card-text">${product.precio}</p>
                   <div className=" row mt-auto">
-                    <button
-                      onClick={() => handlerDelete(product._id)}
-                      className=" btn btn-outline-danger"
-                    >
-                      Borrar
-                    </button>
-                    <button
-                      onClick={() => handlerEdit(product)}
-                      className=" btn btn-outline-primary "
-                    >
-                      Editar
-                    </button>
-                    <button
-                      onClick={() => handlerEdit(product)}
-                      className=" btn btn-success"
-                    >
-                      Comprar
-                    </button>
+                    {isAdmin ? (
+                      <>
+                        <button
+                          onClick={() => handlerDelete(product._id)}
+                          className=" btn btn-outline-danger"
+                        >
+                          Borrar
+                        </button>
+
+                        <button
+                          onClick={() => handlerEdit(product)}
+                          className=" btn btn-outline-primary "
+                        >
+                          Editar
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => handlerEdit(product)}
+                        className=" btn btn-success"
+                      >
+                        Comprar
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

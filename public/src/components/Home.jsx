@@ -27,22 +27,6 @@ function Home() {
     <div>
       <Carousel books={books} />
       <PaginaCatalogo />
-      <Users></Users>
-      <OrderList></OrderList>
-
-      <div>
-        <Link to="/users">
-          <button>Users</button>
-        </Link>
-        <Link to="/products">
-          <button>Post</button>
-        </Link>
-
-        {/* Si tuviesemos parametros
-        <Link to={`/post-form/${product._id}`}>
-          <button>Nuevo Libro</button>
-        </Link> */}
-      </div>
     </div>
   );
 }

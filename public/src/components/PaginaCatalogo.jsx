@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import Products from "./Products"; // Importación corregida
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+import { AuthContext } from "./AuthContext";
 
 function PaginaCatalogo() {
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
   const [selectedGenres, setSelectedGenres] = useState([]);
-  const [searchQuery, setSearchQuery] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
@@ -20,8 +24,8 @@ function PaginaCatalogo() {
   };
 
   return (
-    <div className="col-12 w-100  p-4 container-fluid p-4 ">
-      <div className="row d-flex justify-content-center bg-secondary rounded p-2">
+    <div className="col-12 container-fluid bg-light w-100 rounded">
+      <div className="row d-flex justify-content-center bg-secondary rounded p-2 ">
         <div className="col-3"></div>
         <div className="col-9 d-flex justify-content-center card-header rounded">
           <form className="form-inline my-lg-0 w-75">
@@ -37,12 +41,13 @@ function PaginaCatalogo() {
         </div>
       </div>
       <div className="row d-flex justify-content-center  ">
-        <div className="col-3 border border-2 text-left  ">
+        <div className="col-3 text-left  ">
           <div className="rounded border border-2 m-2 pb-2 ">
             <div className="card-header  rounded p-2 bg-light text-dark text-center">
               <h5>Géneros</h5>
+              <hr />
             </div>
-            <div className="card-body d-flex align-items-start flex-column m-3">
+            <div className="card-body d-flex align-items-start flex-column m-3 mt-0 ">
               {[
                 "Novela",
                 "Cuentos",
@@ -72,11 +77,15 @@ function PaginaCatalogo() {
               ))}
             </div>
           </div>
-          <div className="rounded border border-2 m-2 pb-2">
-            <div className="card-header  rounded p-2 bg-light text-dark text-center">
+          <div
+            className={`rounded border border-2 m-2 pb-2 ${
+              !isAuthenticated || isAdmin ? "disabled opacity-100" : ""
+            }`}
+          >
+            <div className="card-header rounded bg-light text-dark text-center">
               <h5>Carrito 🛒 </h5>
             </div>
-            <div className="card-body">
+            <div className="card-body justify-content-center w-30">
               <table className="table ">
                 <thead>
                   <tr>
@@ -91,25 +100,44 @@ function PaginaCatalogo() {
                     <td>Producto</td>
                     <td>$100</td>
                     <td>
-                      <button className="btn btn-sm">❌</button>
+                      <button
+                        className="btn btn-sm"
+                        disabled={!isAuthenticated || isAdmin}
+                      >
+                        ❌
+                      </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
               <h5>Total: $100</h5>
-              <button className="btn btn-primary btn-sm">Pagar</button>
-              <button className="btn btn-secondary btn-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                disabled={!isAuthenticated || isAdmin}
+              >
+                Pagar
+              </button>
+              <button
+                className="btn btn-secondary btn-sm"
+                disabled={!isAuthenticated || isAdmin}
+              >
                 Vaciar carrito
               </button>
             </div>
           </div>
         </div>
-        <div className="col-9 border border-2">
-          <Link to="/post-form">
-            <button className="btn btn-light border-dark m-3 p-2 position-absolute end-0">
-              Agregar libro
-            </button>
-          </Link>
+
+        <div className="col-9 ">
+          {isAdmin ? (
+            <Link to="/post-form">
+              <button className="btn btn-light border-dark m-3 p-2 position-absolute end-0">
+                Agregar libro
+              </button>
+            </Link>
+          ) : (
+            ""
+          )}
+
           <Products selectedGenres={selectedGenres} searchQuery={searchQuery} />
         </div>
       </div>

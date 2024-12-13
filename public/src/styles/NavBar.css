@@ -24,12 +24,14 @@
 
 .nav-link:hover {
   background-color: rgb(30, 122, 76);
+  border-radius: 10%;
   color: #ffffff;
 }
 
 .nav-link.active {
   background-color: rgb(30, 122, 76);
   color: #003366;
+  border-radius: 10%;
 }
 
 .form-control {

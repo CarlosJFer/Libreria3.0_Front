@@ -1,25 +1,61 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./components/AuthContext"; // Ajusta la ruta
-import Navbar from "./components/Navbar"; // Ajusta la ruta
-import Login from "./components/Login"; // Ajusta la ruta
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import Footer from "./components/Footer";
+import PaginaCatalogo from "./components/PaginaCatalogo";
+import PostForm from "./components/PostForm";
+import Users from "./components/Users";
+import UserForm from "./components/UserForm";
+import OrderList from "./components/OrderList";
+import OrderForm from "./components/OrderForm";
+import MisLibros from "./components/MisLibros";
+import Perfil from "./components/Perfil";
+import "./App.css";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        {/* Este debe ser el único Router en la aplicación */}
-
+    <>
+      <div className="app">
         <Routes>
+          //Home no logeado
+          <Route path="/" element={<Home />} />
+          //Home logeado
+          <Route path="/:id" element={<Home />} />
+          //Mis libros
+          <Route path="/mislibros/:id" element={<MisLibros />} />
+          //Mi perfil
+          <Route path="/perfil/:id" element={<Perfil />} />
+          //Login
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<p>home</p>} />
+          //Register
+          <Route path="/register" element={<Register />} />
+          //Gestión Productos
+          <Route path="/productos" element={<PaginaCatalogo />} />
+          //Crear productos
+          <Route path="/post-form" element={<PostForm />} />
+          //Update de productos
+          <Route path="/post-form/:id" element={<PostForm />} />
+          //Gestion de usuarios
+          <Route path="/usuarios" element={<Users />} />
+          //Crear usuario
+          <Route path="/user-form" element={<UserForm />} />
+          //Update usuario
+          <Route path="/user-form/:id" element={<UserForm />} />
+          //Gestion ordenes
+          <Route path="/ordenes" element={<OrderList />} />
+          //Crear orden
+          <Route path="/order-form" element={<OrderForm />} />
+          //Update orden
+          <Route path="/order-form/:id" element={<OrderForm />} />
           {/* Agrega otras rutas aquí */}
         </Routes>
         <Navbar />
         <Footer></Footer>
-      </Router>
-    </AuthProvider>
+      </div>
+    </>
   );
 }
 
@@ -76,22 +112,22 @@ export default App;
 //           <Route path="/:id" element={<Home />} />
 //           //Gestion de productos
 //           <Route path="/productos" element={<PaginaCatalogo />} />
-//           //Crear productos
-//           <Route path="/post-form" element={<PostForm />} />
-//           //Update de productos
-//           <Route path="/post-form/:id" element={<PostForm />} />
-//           //Gestion de usuarios
-//           <Route path="/usuarios" element={<Users />} />
-//           //Crear usuario
-//           <Route path="/user-form" element={<UserForm />} />
-//           //Update usuario
-//           <Route path="/user-form/:id" element={<UserForm />} />
-//           //Gestion ordenes
-//           <Route path="/ordenes" element={<OrderList />} />
-//           //Crear orden
-//           <Route path="/order-form" element={<OrderForm />} />
-//           //Update orden
-//           <Route path="/order-form/:id" element={<OrderForm />} />
+// //Crear productos
+// <Route path="/post-form" element={<PostForm />} />
+// //Update de productos
+// <Route path="/post-form/:id" element={<PostForm />} />
+// //Gestion de usuarios
+// <Route path="/usuarios" element={<Users />} />
+// //Crear usuario
+// <Route path="/user-form" element={<UserForm />} />
+// //Update usuario
+// <Route path="/user-form/:id" element={<UserForm />} />
+// //Gestion ordenes
+// <Route path="/ordenes" element={<OrderList />} />
+// //Crear orden
+// <Route path="/order-form" element={<OrderForm />} />
+// //Update orden
+// <Route path="/order-form/:id" element={<OrderForm />} />
 //           //Error 404
 //           <Route path="*" element={<Error404 />} />
 //         </Routes>

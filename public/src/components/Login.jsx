@@ -22,8 +22,8 @@ function Login() {
 
       const { token, user } = response.data;
       localStorage.setItem("token", token);
-      login(user); // Actualiza el estado en el contexto
-      console.log(user);
+      login(user._doc); // Actualiza el estado en el contexto
+      console.log(user._doc);
       navigate(`/${user._doc._id}`);
     } catch (err) {
       console.error(err);
@@ -32,46 +32,48 @@ function Login() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card shadow border-0 rounded">
-            <div className="card-body p-5">
-              <h2 className="text-center mb-4">Iniciar Sesión</h2>
-              <form onSubmit={handleLogin}>
-                <div className="form-floating mb-3">
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="email">Correo Electrónico</label>
-                </div>
-                <div className="form-floating mb-3">
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <label htmlFor="password">Contraseña</label>
-                </div>
-                <button type="submit" className="btn btn-primary w-100 py-2">
-                  Iniciar Sesión
-                </button>
-              </form>
+    <>
+      <div className="container ">
+        <div className="row justify-content-center">
+          <div className="col-md-6 ">
+            <div className="card shadow border-0 rounded">
+              <div className="card-body p-5">
+                <h2 className="text-center mb-4">Iniciar Sesión</h2>
+                <form onSubmit={handleLogin}>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    <label htmlFor="email">Correo Electrónico</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      placeholder="Contraseña"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <label htmlFor="password">Contraseña</label>
+                  </div>
+                  <button type="submit" className="btn btn-primary w-100 py-2">
+                    Iniciar Sesión
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -114,46 +116,46 @@ export default Login;
 //   };
 
 //   return (
-//     <div className="container mt-5">
-//       <div className="row justify-content-center">
-//         <div className="col-md-6">
-//           <div className="card shadow border-0 rounded">
-//             <div className="card-body p-5">
-//               <h2 className="text-center mb-4">Iniciar Sesión</h2>
-//               <form onSubmit={handleLogin}>
-//                 <div className="form-floating mb-3">
-//                   <input
-//                     type="email"
-//                     className="form-control"
-//                     id="email"
-//                     placeholder="name@example.com"
-//                     value={email}
-//                     onChange={(e) => setEmail(e.target.value)}
-//                     required
-//                   />
-//                   <label htmlFor="email">Correo Electrónico</label>
-//                 </div>
-//                 <div className="form-floating mb-3">
-//                   <input
-//                     type="password"
-//                     className="form-control"
-//                     id="password"
-//                     placeholder="Contraseña"
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
-//                     required
-//                   />
-//                   <label htmlFor="password">Contraseña</label>
-//                 </div>
-//                 <button type="submit" className="btn btn-primary w-100 py-2">
-//                   Iniciar Sesión
-//                 </button>
-//               </form>
+// <div className="container mt-5">
+//   <div className="row justify-content-center">
+//     <div className="col-md-6">
+//       <div className="card shadow border-0 rounded">
+//         <div className="card-body p-5">
+//           <h2 className="text-center mb-4">Iniciar Sesión</h2>
+//           <form onSubmit={handleLogin}>
+//             <div className="form-floating mb-3">
+//               <input
+//                 type="email"
+//                 className="form-control"
+//                 id="email"
+//                 placeholder="name@example.com"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 required
+//               />
+//               <label htmlFor="email">Correo Electrónico</label>
 //             </div>
-//           </div>
+//             <div className="form-floating mb-3">
+//               <input
+//                 type="password"
+//                 className="form-control"
+//                 id="password"
+//                 placeholder="Contraseña"
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//                 required
+//               />
+//               <label htmlFor="password">Contraseña</label>
+//             </div>
+//             <button type="submit" className="btn btn-primary w-100 py-2">
+//               Iniciar Sesión
+//             </button>
+//           </form>
 //         </div>
 //       </div>
 //     </div>
+//   </div>
+// </div>
 //   );
 // }
 

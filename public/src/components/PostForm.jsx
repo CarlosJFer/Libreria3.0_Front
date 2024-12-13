@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { createProduct, updateProduct } from "../redux/productsSlice";
 import axios from "axios";
 
@@ -37,27 +37,33 @@ function PostForm() {
     });
   };
 
-  const handlerClick = (e) => {
+  const handlerClick = async (e) => {
     e.preventDefault();
-    if (inputs) {
-      if (id) {
-        axios
-          .put(`http://localhost:3000/api/products/${id}`, inputs)
-          .then((res) => {
-            dispatch(updateProduct(res.data));
-            navigate("/");
-          })
-          .catch((err) => console.error(err));
-      } else {
-        axios
-          .post("http://localhost:3000/api/products", inputs)
-          .then((res) => {
-            dispatch(createProduct(res.data));
-            navigate("/");
-          })
-          .catch((err) => console.error(err));
+    try {
+      if (inputs) {
+        if (id) {
+          const response = await axios.put(
+            `http://localhost:3000/api/products/${id}`,
+            inputs
+          );
+          dispatch(updateProduct(response.data));
+        } else {
+          const response = await axios.post(
+            "http://localhost:3000/api/products",
+            inputs
+          );
+          dispatch(createProduct(response.data));
+        }
+        navigate("/");
       }
+    } catch (error) {
+      console.error("Error al guardar producto:", error);
+      alert("Error al guardar el producto");
     }
+  };
+
+  const handleCancel = () => {
+    navigate(-1);
   };
 
   return (
@@ -177,10 +183,18 @@ function PostForm() {
           />
         </div>
         <div className="d-flex justify-content-between">
-          <button onClick={() => navigate("/")} className="btn btn-secondary">
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="btn btn-secondary"
+          >
             Cancelar
           </button>
-          <button onClick={handlerClick} className="btn btn-primary">
+          <button
+            type="submit"
+            onClick={handlerClick}
+            className="btn btn-primary"
+          >
             {id ? "Actualizar Producto" : "Crear Producto"}
           </button>
         </div>

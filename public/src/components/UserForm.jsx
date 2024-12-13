@@ -57,7 +57,7 @@ function UserForm() {
   };
 
   const handleCancel = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   return (
