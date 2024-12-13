@@ -11,15 +11,21 @@ function Users() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    axios("http://localhost:3000/api/users")
+    const token = localStorage.getItem("token");
+    axios("http://localhost:3000/api/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => dispatch(getUsers(res.data)))
       .catch((err) => console.error(err));
   }, [dispatch]);
 
   const handlerDelete = (_id) => {
+    const token = localStorage.getItem("token");
     if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
       axios
-        .delete(`http://localhost:3000/api/users/${_id}`)
+        .delete(`http://localhost:3000/api/users/${_id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then(() => {
           dispatch(deleteUser(_id));
         })

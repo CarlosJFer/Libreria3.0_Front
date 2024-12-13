@@ -1,29 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createUser, updateUser } from "../redux/usersSlice";
+import { AuthContext } from "./AuthContext";
 
 function UserForm() {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
+    username: "", // Añadir campo de nombre de usuario
     role: "user",
   });
-
+  const { isAuthenticated } = useContext(AuthContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (id) {
       axios
-        .get(`http://localhost:3000/api/users/${id}`)
+        .get(`http://localhost:3000/api/users/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((res) => setUserData(res.data))
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          if (err.response && err.response.status === 401) {
+            navigate("/login");
+          }
+        });
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,24 +45,36 @@ function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
     try {
       if (id) {
         const response = await axios.put(
           `http://localhost:3000/api/users/${id}`,
-          userData
+          userData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
         dispatch(updateUser(response.data));
       } else {
         const response = await axios.post(
           "http://localhost:3000/api/users",
-          userData
+          userData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
         dispatch(createUser(response.data));
       }
       navigate("/users");
     } catch (error) {
       console.error("Error al guardar usuario:", error);
-      alert("Error al guardar el usuario");
+      if (error.response && error.response.status === 401) {
+        alert("No tienes autorización para realizar esta acción");
+        navigate("/login");
+      } else {
+        alert("Error al guardar el usuario");
+      }
     }
   };
 
@@ -85,6 +107,18 @@ function UserForm() {
                   />
                 </div>
                 <div className="mb-3">
+                  <label className="form-label">Nombre de Usuario</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={userData.username}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ingresa tu nombre de usuario"
+                  />
+                </div>
+                <div className="mb-3">
                   <label className="form-label">Email</label>
                   <input
                     type="email"
@@ -112,6 +146,7 @@ function UserForm() {
                     }
                   />
                 </div>
+
                 <div className="mb-3">
                   <label className="form-label">Rol</label>
                   <select

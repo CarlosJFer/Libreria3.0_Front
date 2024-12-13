@@ -6,6 +6,7 @@ import "../styles/NavBar.css";
 
 const Navbar = () => {
   const { isAuthenticated, isAdmin, user, logout } = useContext(AuthContext);
+  console.log(user);
 
   return (
     <>
@@ -14,7 +15,7 @@ const Navbar = () => {
         <div className="container ">
           <div className="collapse navbar-collapse " id="navbarNav">
             <ul className="navbar-nav mr-auto">
-              {isAuthenticated ? (
+              {isAuthenticated && user ? (
                 <>
                   <NavLink className="navbar-brand" to={`/${user._id}`}>
                     <span>Librería</span> 3.0
