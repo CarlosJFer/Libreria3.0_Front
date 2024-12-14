@@ -69,25 +69,29 @@ function OrderList() {
             <table className="table table-striped table-hover">
               <thead className="table-gray">
                 <tr>
+                  <th>ID</th>
                   <th>Fecha</th>
                   <th>Método de pago</th>
                   <th>Estado</th>
+                  <th>Total</th>
                   <th className="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredOrders.length === 0 ? (
                   <tr>
-                    <td colSpan="3" className="text-center text-muted">
+                    <td colSpan="6" className="text-center text-muted">
                       No se encontraron órdenes
                     </td>
                   </tr>
                 ) : (
                   filteredOrders.map((order) => (
                     <tr key={order._id}>
+                      <td>{order._id}</td>
                       <td>{order.fecha}</td>
                       <td>{order.metodoPago}</td>
                       <td>{order.estado}</td>
+                      <td>{order.total.$numberDecimal}</td>
                       <td className="text-center">
                         <div className="btn-group" role="group">
                           <button

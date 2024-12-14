@@ -22,7 +22,7 @@ function Login() {
 
       const { token, user } = response.data;
       localStorage.setItem("token", token);
-      login(user._doc); // Actualiza el estado en el contexto
+      login(user._doc);
       console.log(user._doc);
       navigate(`/${user._doc._id}`);
     } catch (err) {

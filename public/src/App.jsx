@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -13,7 +14,8 @@ import OrderList from "./components/OrderList";
 import OrderForm from "./components/OrderForm";
 import MisLibros from "./components/MisLibros";
 import Perfil from "./components/Perfil";
-import "./App.css";
+
+import OrderFormUser from "./components/OrderFormUser";
 
 function App() {
   return (
@@ -49,7 +51,7 @@ function App() {
           //Crear orden
           <Route path="/order-form" element={<OrderForm />} />
           //Update orden
-          <Route path="/order-form/:id" element={<OrderForm />} />
+          <Route path="/order-form/:id" element={<OrderFormUser />} />
           {/* Agrega otras rutas aquí */}
         </Routes>
         <Navbar />

@@ -54,7 +54,8 @@ function PostForm() {
           );
           dispatch(createProduct(response.data));
         }
-        navigate("/");
+        // navigate("/");
+        navigate("/productos");
       }
     } catch (error) {
       console.error("Error al guardar producto:", error);

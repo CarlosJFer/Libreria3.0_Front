@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProducts, deleteProduct } from "../redux/productsSlice";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "./AuthContext";
@@ -31,6 +31,12 @@ function Products({ selectedGenres, searchQuery }) {
 
   const handlerEdit = (product) => {
     navigate(`/post-form/${product._id}`);
+  };
+  const { id } = useParams();
+  const handlerOrder = (product) => {
+    id
+      ? navigate(`/order-form/${id}`, { state: { product } })
+      : navigate("/login");
   };
 
   // Filtrar productos según géneros seleccionados y consulta de búsqueda
@@ -90,7 +96,7 @@ function Products({ selectedGenres, searchQuery }) {
                       </>
                     ) : (
                       <button
-                        onClick={() => handlerEdit(product)}
+                        onClick={() => handlerOrder(product)}
                         className=" btn btn-success"
                       >
                         Comprar
