@@ -1,3 +1,4 @@
+import "../styles/products.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -32,6 +33,7 @@ function Products({ selectedGenres, searchQuery }) {
   const handlerEdit = (product) => {
     navigate(`/post-form/${product._id}`);
   };
+
   const { id } = useParams();
   const handlerOrder = (product) => {
     id
@@ -72,24 +74,35 @@ function Products({ selectedGenres, searchQuery }) {
               className="col-md-4 d-flex align-items-stretch"
               key={product._id}
             >
-              <div className="card my-3 w-100" id={product._id}>
+              <div className="card my-3 w-100 product-card">
+                <img
+                  src="./src/assets/Portada.png"
+                  alt="Portada"
+                  className="card-img-top img-fluid"
+                />
                 <div className="card-body d-flex flex-column">
-                  <p className="card-title fw-bolder">{product.titulo}</p>
-                  <p className="card-text">{product.genero}</p>
-                  <p className="card-text">${product.precio}</p>
-                  <div className=" row mt-auto">
+                  <h5 className="card-title fw-bold mb-3">{product.titulo}</h5>
+                  <div className="mb-auto text-start">
+                    <h6 className="card-subtitle text-muted">
+                      Autor: {product.autor}
+                    </h6>
+                    <p className="card-text">Género: {product.genero}</p>
+                    <p className="card-text fw-bold  ">
+                      Precio: ${product.precio}
+                    </p>
+                  </div>
+                  <div className=" d-flex justify-content-end">
                     {isAdmin ? (
                       <>
                         <button
                           onClick={() => handlerDelete(product._id)}
-                          className=" btn btn-outline-danger"
+                          className="btn btn-outline-danger me-2"
                         >
                           Borrar
                         </button>
-
                         <button
                           onClick={() => handlerEdit(product)}
-                          className=" btn btn-outline-primary "
+                          className="btn btn-outline-primary"
                         >
                           Editar
                         </button>
@@ -97,7 +110,7 @@ function Products({ selectedGenres, searchQuery }) {
                     ) : (
                       <button
                         onClick={() => handlerOrder(product)}
-                        className=" btn btn-success"
+                        className="btn btn-success custom-buy-button"
                       >
                         Comprar
                       </button>

@@ -1,6 +1,6 @@
 import React from "react";
 import CarouselItem from "./CarouselItem";
-import "../styles/card.css";
+import "../styles/carousel.css";
 
 const groupBooks = (books, groupSize) => {
   const grouped = [];
@@ -11,15 +11,15 @@ const groupBooks = (books, groupSize) => {
 };
 
 const Carousel = ({ books }) => {
-  const groupedBooks = groupBooks(books, 3); // Agrupa en lotes de 3 libros
+  const groupedBooks = groupBooks(books, 3);
 
   return (
     <>
       <div
         id="bookCarousel"
         className="carousel slide w-100 p-2 border border-gray mb-2 bg-light rounded"
-        data-bs-ride="carousel" // Añade el atributo para movimiento automático
-        data-bs-interval="5000" // Intervalo de 5 segundos entre desplazamientos
+        data-bs-ride="carousel"
+        data-bs-interval="5000"
       >
         <div className="carousel-inner">
           {groupedBooks.map((group, index) => (

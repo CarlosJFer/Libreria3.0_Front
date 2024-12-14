@@ -27,12 +27,15 @@ function Register() {
   };
 
   return (
-    <div className="container ">
+    <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <div className="card shadow border-0 rounded">
+          <div
+            className="card shadow border-0 rounded"
+            style={{ backgroundColor: "rgba(0, 102, 31, 0.9)" }}
+          >
             <div className="card-body p-5">
-              <h2 className="text-center mb-4">Registrarse</h2>
+              <h2 className="text-center mb-4 text-white">Registrarse</h2>
               <form onSubmit={handleRegister}>
                 <div className="form-floating mb-3">
                   <input

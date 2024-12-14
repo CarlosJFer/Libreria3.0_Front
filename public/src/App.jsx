@@ -55,7 +55,7 @@ function App() {
           {/* Agrega otras rutas aquí */}
         </Routes>
         <Navbar />
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
       </div>
     </>
   );
