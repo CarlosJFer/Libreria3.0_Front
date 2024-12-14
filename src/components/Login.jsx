@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,10 +19,12 @@ function Login() {
           password,
         }
       );
-      const token = response.data.token;
-      const id = response.data.user._doc._id;
+
+      const { token, user } = response.data;
       localStorage.setItem("token", token);
-      navigate(`/${id}`); // Redirige a la página principal o dashboard
+      login(user._doc);
+      console.log(user._doc);
+      navigate(`/${user._doc._id}`);
     } catch (err) {
       console.error(err);
       alert("Credenciales incorrectas o error de red");
@@ -28,44 +32,132 @@ function Login() {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="text-center mb-4">Iniciar Sesión</h2>
-      <form
-        onSubmit={handleLogin}
-        className="p-4 border rounded shadow-sm bg-light"
-      >
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Correo Electrónico
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div
+            className="card shadow border-0 rounded"
+            style={{ backgroundColor: "rgba(0, 102, 31, 0.8)" }}
+          >
+            <div className="card-body p-5">
+              <h2 className="text-center mb-4 text-white">Iniciar Sesión</h2>
+              <form onSubmit={handleLogin}>
+                <div className="form-floating mb-3">
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="email">Correo Electrónico</label>
+                </div>
+                <div className="form-floating mb-3">
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="password">Contraseña</label>
+                </div>
+                <button type="submit" className="btn btn-primary w-100 py-2">
+                  Iniciar Sesión
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Contraseña
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Iniciar Sesión
-        </button>
-      </form>
+      </div>
     </div>
   );
 }
 
 export default Login;
+
+// import React, { useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../redux/authSlice";
+
+// function Login({ setIsAuthenticated }) {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await axios.post(
+//         "http://localhost:3000/api/auth/login",
+//         {
+//           email,
+//           password,
+//         }
+//       );
+
+//       //ANALIZAR
+//       const { token, user } = response.data;
+//       localStorage.setItem("token", token);
+//       dispatch(setUser(user));
+//       () => setIsAuthenticated(true);
+
+//       navigate(`/${user._doc._id}`);
+//     } catch (err) {
+//       console.error(err);
+//       alert("Credenciales incorrectas o error de red");
+//     }
+//   };
+
+//   return (
+// <div className="container mt-5">
+//   <div className="row justify-content-center">
+//     <div className="col-md-6">
+//       <div className="card shadow border-0 rounded">
+//         <div className="card-body p-5">
+//           <h2 className="text-center mb-4">Iniciar Sesión</h2>
+//           <form onSubmit={handleLogin}>
+//             <div className="form-floating mb-3">
+//               <input
+//                 type="email"
+//                 className="form-control"
+//                 id="email"
+//                 placeholder="name@example.com"
+//                 value={email}
+//                 onChange={(e) => setEmail(e.target.value)}
+//                 required
+//               />
+//               <label htmlFor="email">Correo Electrónico</label>
+//             </div>
+//             <div className="form-floating mb-3">
+//               <input
+//                 type="password"
+//                 className="form-control"
+//                 id="password"
+//                 placeholder="Contraseña"
+//                 value={password}
+//                 onChange={(e) => setPassword(e.target.value)}
+//                 required
+//               />
+//               <label htmlFor="password">Contraseña</label>
+//             </div>
+//             <button type="submit" className="btn btn-primary w-100 py-2">
+//               Iniciar Sesión
+//             </button>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
+//   );
+// }
+
+// export default Login;
