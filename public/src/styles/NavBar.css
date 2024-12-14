@@ -1,8 +1,15 @@
 .navbar {
   background-color: #00661f;
+  position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  z-index: 1000; /* Asegura que el navbar se mantenga en el frente */
+  z-index: 1000;
+}
+
+/* Añade un margen superior al contenido principal para compensar la altura del navbar */
+.app {
+  margin-top: 60px; /* Ajusta según la altura de tu navbar */
 }
 
 .navbar-brand {
