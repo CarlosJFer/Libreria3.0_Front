@@ -1,117 +1,177 @@
-import { useState } from "react";
-     
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 const Profile = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    username: "",
-      password: "",
-      confirmPassword:"",
-  });
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange", // Validación en tiempo real
+    shouldFocusError: true, // Enfoca el primer error
+    // defaultValues: {
+    //   name: "",
+    //   email: "",
+    //   phone: "",
+    //   username: "",
+    //   password: "",
+    //   confirmPassword: "",
+    // },
+  });
+
+  // Simular datos obtenidos de la API
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+        if (!response.ok) throw new Error("Error al obtener los datos del usuario");
+        const data = await response.json();
+
+         // Mapeamos los datos a los campos del formulario
+         const userData = {
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          username: data.username,
+          password: "",
+          confirmPassword: "",
+        };
+
+        reset(userData); // Cargar los datos en el formulario
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserData();
+  }, [reset]);
+
+   // Guardar datos del formulario
+  const onSubmit = (data) => {
+    alert("Datos guardados con éxito:\n" + JSON.stringify(data, null, 2));
+    setIsEditing(false); // Cambiar a modo "vista" después de guardar
   };
 
-  const handleSave = () => {
-    alert("Guardado con éxito");
-    setIsEditing(false);
+  const enableEditing = () => {
+    setIsEditing(true); // Activar edición
   };
 
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Mi Perfil</h2>
-      <form>
-      <label className="profile-label">
-        Nombre:
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Correo:
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Teléfono:
-        <input
-          type="text"
-          name="phone"
-          value={user.phone}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      
-        <label className="profile-label">
-        Password:
-        <input
-          type="text"
-          name="Password"
-          value={user.password}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-        </label>
-        <label className="profile-label">
-        Confirm Password:
-        <input
-          type="text"
-          name="Confirm Password"
-          value={user.confirmPassword}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-        </label>
-        </form>
-      {!isEditing ? (
+      {!isEditing && ( // Botón Editar fuera del formulario
         <button
-          onClick={() => setIsEditing(true)}
-          className="p-2 border rounded shadow-s bg-  #003366;"
+          type="button"
+          onClick={enableEditing}
+          className="p-2 border rounded shadow-s bg-#003366 mb-4"
         >
           Editar
         </button>
-      ) : (
-        <button
-          onClick={handleSave}
-          className="p-2 border rounded shadow-s bg-  #003366;"
-        >
-          Guardar
-        </button>
       )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label className="profile-label">
+          Nombre:
+          <input
+            type="text"
+            {...register("name", { required: "El nombre es obligatorio" })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
+        </label>
+        <br />
+        <label className="profile-label">
+          Correo:
+          <input
+            type="email"
+            {...register("email", {
+              required: "El correo es obligatorio",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Correo inválido",
+              },
+            })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
+        </label>
+        <br />
+        <label className="profile-label">
+          Teléfono:
+          <input
+            type="text"
+            {...register("phone", {
+              required: "El teléfono es obligatorio",
+              minLength: {
+                value: 10,
+                message: "El teléfono debe tener al menos 10 dígitos",
+              },
+            })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.phone && <p style={{ color: "red" }}>{errors.phone.message}</p>}
+        </label>
+        <br />
+        <label className="profile-label">
+          Usuario:
+          <input
+            type="text"
+            {...register("username", { required: "El usuario es obligatorio" })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.username && <p style={{ color: "red" }}>{errors.username.message}</p>}
+        </label>
+        <br />
+        <label className="profile-label">
+          Contraseña:
+          <input
+            type="password"
+            {...register("password", {
+              required: "La contraseña es obligatoria",
+              minLength: {
+                value: 6,
+                message: "La contraseña debe tener al menos 6 caracteres",
+              },
+            })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.password && <p style={{ color: "red" }}>{errors.password.message}</p>}
+        </label>
+        <br />
+        <label className="profile-label">
+          Confirmar contraseña:
+          <input
+            type="password"
+            {...register("confirmPassword", {
+              required: "Debe confirmar su contraseña",
+              validate: (value) => value === watch("password") || "Las contraseñas no coinciden",
+            })}
+            disabled={!isEditing}
+            className="p-2 border rounded shadow-s bg-#ffffff"
+          />
+          {errors.confirmPassword && (
+            <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+          )}
+        </label>
+        <br />
+        {isEditing && ( // Mostrar el botón Guardar solo en modo edición
+          <button
+            type="submit"
+            className="p-2 border rounded shadow-s bg-#003366">
+            Guardar
+          </button>
+        )}
+      </form>
     </div>
   );
 };
 
 export default Profile;
-
-
