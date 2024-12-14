@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
-
+ // const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para verificar si el usuario ha iniciado sesión
+  const { userId } = useParams(); // Obtener el ID del usuario desde la URL
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,32 +26,51 @@ const Profile = () => {
     // },
   });
 
-  // Simular datos obtenidos de la API
+  // Verificar si el usuario está logueado
   useEffect(() => {
-    const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirige a la página de login si no hay token
+    } else {
+      //setIsLoggedIn(true);
+      fetchUserData(); // Obtener los datos del usuario
+    }
+  }, [navigate, fetchUserData]);
+
+  // Simular datos obtenidos de la API
+      const fetchUserData = useCallback(async () => {
       try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
         if (!response.ok) throw new Error("Error al obtener los datos del usuario");
         const data = await response.json();
-
-         // Mapeamos los datos a los campos del formulario
-         const userData = {
+        reset({
           name: data.name,
           email: data.email,
           phone: data.phone,
           username: data.username,
           password: "",
           confirmPassword: "",
-        };
-
-        reset(userData); // Cargar los datos en el formulario
+        })
       } catch (error) {
         console.error(error);
       }
-    };
+    }, [userId, reset]);
+         
+        // Mapeamos los datos a los campos del formulario
+        //  const userData = {
+        //   name: data.name,
+        //   email: data.email,
+        //   phone: data.phone,
+        //   username: data.username,
+        //   password: "",
+        //   confirmPassword: "",
+        // };
 
-    fetchUserData();
-  }, [reset]);
+    //     reset(userData); // Cargar los datos en el formulario
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
 
    // Guardar datos del formulario
   const onSubmit = (data) => {

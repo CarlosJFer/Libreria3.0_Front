@@ -4,7 +4,7 @@
 import "./App.css";
 import Home from "./components/Home";
 import Error404 from "./components/Error404";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Componente from "./components/Componente";
 import Componente2 from "./components/Componente2";
 // import Productos from "./components/Productos";
@@ -24,7 +24,6 @@ function App() {
   return (
     <>
       <NavBar></NavBar>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<Home />} />
@@ -38,7 +37,7 @@ function App() {
           <Route index element={<Componente />} />
         </Route>
         <Route path="/detalle/:id" element={<Detalle />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:Id" element={<Profile />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
       <Footer></Footer>
