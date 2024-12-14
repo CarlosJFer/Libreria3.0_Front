@@ -1,11 +1,16 @@
 /* Estilo para el contenedor #root */
 #root {
+  background-image: url("./assets/biblioteca.jpeg"); /* Asegúrate de usar url() */
+  background-size: cover; /* Asegura que la imagen de fondo cubra todo el contenedor */
+  background-position: center; /* Centra la imagen de fondo */
+  background-repeat: no-repeat; /* No repite la imagen de fondo */
   max-width: 100%;
   width: 100%;
   min-height: 100vh; /* Usa min-height en lugar de height */
   display: flex;
   flex-direction: column; /* Cambia a columna para un mejor flujo */
-  align-items: center;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
   margin-top: 0;
   padding: 0;
 }
