@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -10,17 +10,28 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      // Simulando una respuesta exitosa del backend
+    const response = {
+      data: {
+        token: "fake_token_12345", // Simulando un token
+        user: {
+          _doc: {
+            _id: "1", // Simulando un ID de usuario
+          },
+        },
+      },
+    };
+     /* const response = await axios.post(
         "http://localhost:3000/api/auth/login",
         {
           email,
           password,
         }
-      );
+      );*/
       const token = response.data.token;
       const id = response.data.user._doc._id;
       localStorage.setItem("token", token);
-      navigate(`/${id}`); // Redirige a la página principal o dashboard
+      navigate(`/profile/${id}`); // Redirige a la página principal o dashboard
     } catch (err) {
       console.error(err);
       alert("Credenciales incorrectas o error de red");

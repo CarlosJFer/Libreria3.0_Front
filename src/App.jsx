@@ -37,7 +37,7 @@ function App() {
           <Route index element={<Componente />} />
         </Route>
         <Route path="/detalle/:id" element={<Detalle />} />
-        <Route path="/profile/:Id" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
       <Footer></Footer>
