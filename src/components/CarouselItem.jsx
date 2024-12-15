@@ -2,7 +2,7 @@ import React from "react";
 
 const CarouselItem = ({ book }) => {
   return (
-    <div className="card h-100 d-flex flex-row bg-dark text-light">
+    <div className="card h-100 d-flex flex-row bg-white text-dark border-0">
       <img
         src="./src/assets/Portada.png"
         alt="Portada"

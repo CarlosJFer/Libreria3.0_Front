@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Products from "./Products"; // Importación corregida
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-
+import logo2 from "../assets/logo2.jpg";
 import { AuthContext } from "./AuthContext";
 
 function PaginaCatalogo() {
@@ -25,8 +25,8 @@ function PaginaCatalogo() {
 
   return (
     <div className="col-12 container-fluid bg-light w-100 rounded">
-      <div className="row d-flex justify-content-center bg-secondary rounded p-2 ">
-        <div className="col-3"></div>
+      <div className="row d-flex justify-content-center bg-dark border border-secondary rounded p-2 ">
+        <div className="col-3 d-flex justify-content-center rounded-5"></div>
         <div className="col-9 d-flex justify-content-center card-header rounded">
           <form className="form-inline my-lg-0 w-75">
             <input

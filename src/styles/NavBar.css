@@ -1,5 +1,5 @@
 .navbar {
-  background-color: rgba(0, 102, 31, 0.8); /* Color verde con transparencia */
+  background-color: rgba(0, 0, 0, 0.8); /* Color verde con transparencia */
   position: fixed;
   top: 0;
   left: 0;
@@ -32,21 +32,21 @@
 
 .nav-link:hover {
   background-color: rgba(
-    30,
-    122,
-    76,
-    0.8
-  ); /* Fondo con transparencia al hacer hover */
+    234,
+    231,
+    219,
+    0.573
+  ); /* Fondo naranja con transparencia */
   border-radius: 10%;
   color: #ffffff;
 }
 
 .nav-link.active {
   background-color: rgba(
-    30,
-    122,
-    76,
-    0.8
+    234,
+    231,
+    219,
+    0.573
   ); /* Fondo con transparencia para el enlace activo */
   color: #003366;
   border-radius: 10%;

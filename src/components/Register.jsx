@@ -28,11 +28,11 @@ function Register() {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
+      <div className="row justify-content-center ">
         <div className="col-md-6">
           <div
-            className="card shadow border-0 rounded"
-            style={{ backgroundColor: "rgba(0, 102, 31, 0.9)" }}
+            className="card shadow border border-secondary rounded"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}
           >
             <div className="card-body p-5">
               <h2 className="text-center mb-4 text-white">Registrarse</h2>
@@ -85,7 +85,7 @@ function Register() {
                   />
                   <label htmlFor="password">Contraseña</label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100 py-2">
+                <button type="submit" className="btn btn-secondary w-100 py-2">
                   Registrarse
                 </button>
               </form>

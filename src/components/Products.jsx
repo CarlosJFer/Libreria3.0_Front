@@ -66,7 +66,6 @@ function Products({ selectedGenres, searchQuery }) {
 
   return (
     <div className="container p-2 m-2">
-      <h2>Libros</h2>
       {productRows.map((row, rowIndex) => (
         <div className="row" key={rowIndex}>
           {row.map((product) => (
@@ -76,7 +75,7 @@ function Products({ selectedGenres, searchQuery }) {
             >
               <div className="card my-3 w-100 product-card">
                 <img
-                  src="./src/assets/Portada.png"
+                  src="https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
                   alt="Portada"
                   className="card-img-top img-fluid"
                 />
