@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Products from "./Products"; // Importación corregida
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import logo2 from "../assets/logo2.jpg";
 import { AuthContext } from "./AuthContext";
 
 function PaginaCatalogo() {
