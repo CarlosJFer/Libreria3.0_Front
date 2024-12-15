@@ -2,8 +2,12 @@ import { useSelector } from "react-redux";
 import Card1 from "./Card1";
 
 function Cards() {
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state) => state.users.userData);
   console.log(users);
+
+  if (!Array.isArray(users)) {
+    return <p>No hay usuarios disponibles.</p>; // Verifica que `users` sea un array
+  }
 
   return (
     <div className="cards">

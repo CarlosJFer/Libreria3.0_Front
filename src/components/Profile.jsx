@@ -1,117 +1,38 @@
-import { useState } from "react";
-     
-const Profile = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    username: "",
-      password: "",
-      confirmPassword:"",
-  });
-  const [isEditing, setIsEditing] = useState(false);
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "../redux/usersSlice";
+import { Container } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import ProfileForm from "./ProfileForm";
+import Favorites from "./Favorites";
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
-  };
+function Profile() {
+  const dispatch = useDispatch();
+  const { userData, loading, error } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const { id: userId } = useParams();
 
-  const handleSave = () => {
-    alert("Guardado con éxito");
-    setIsEditing(false);
-  };
+
+    useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login"); // Redirige al login si no hay un token
+    } else {
+      dispatch(fetchUserData(userId)); // Obtiene datos del usuario
+    }
+  }, [dispatch, navigate, userId]);
+
+  if (loading) return <p>Cargando datos del usuario...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mt-5">
-      <h2 className="text-center mb-4">Mi Perfil</h2>
-      <form>
-      <label className="profile-label">
-        Nombre:
-        <input
-          type="text"
-          name="name"
-          value={user.name}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Correo:
-        <input
-          type="email"
-          name="email"
-          value={user.email}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Teléfono:
-        <input
-          type="text"
-          name="phone"
-          value={user.phone}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      <label className="profile-label">
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={user.username}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-      </label>
-      
-        <label className="profile-label">
-        Password:
-        <input
-          type="text"
-          name="Password"
-          value={user.password}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-        </label>
-        <label className="profile-label">
-        Confirm Password:
-        <input
-          type="text"
-          name="Confirm Password"
-          value={user.confirmPassword}
-          onChange={handleChange}
-          disabled={!isEditing}
-          className="p-2 border rounded shadow-s bg- #ffffff"
-        />
-        </label>
-        </form>
-      {!isEditing ? (
-        <button
-          onClick={() => setIsEditing(true)}
-          className="p-2 border rounded shadow-s bg-  #003366;"
-        >
-          Editar
-        </button>
-      ) : (
-        <button
-          onClick={handleSave}
-          className="p-2 border rounded shadow-s bg-  #003366;"
-        >
-          Guardar
-        </button>
-      )}
-    </div>
+    <Container className="mt-5">
+        <h1>Hola {userData?.name}</h1>
+      <ProfileForm userData={userData} />
+      <hr />
+      <Favorites favorites={userData?.favorites} />
+    </Container>
   );
-};
+}
 
 export default Profile;
-
-

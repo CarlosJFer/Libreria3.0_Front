@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+//import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { AuthProvider } from "./components/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
