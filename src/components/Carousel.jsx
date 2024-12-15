@@ -17,7 +17,7 @@ const Carousel = ({ books }) => {
     <>
       <div
         id="bookCarousel"
-        className="carousel slide w-100 p-2 border border-gray mb-2 bg-light rounded"
+        className="carousel slide w-100 p-2 border border-secondary border-1  mb-2 bg-dark rounded"
         data-bs-ride="carousel"
         data-bs-interval="5000"
       >

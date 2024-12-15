@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { createOrder } from "../redux/orderSlice";
@@ -48,7 +48,6 @@ const OrderFormUser = () => {
           orderData
         );
         dispatch(createOrder(response.data));
-        //navigate("/");
         navigate(`/${id}`);
       } else {
         alert("Error: Producto no encontrado.");
@@ -67,18 +66,21 @@ const OrderFormUser = () => {
     <Container style={{ maxWidth: "800px", marginTop: "2rem" }}>
       {product ? (
         <Card className="p-3 mb-4">
-          {" "}
-          <h1 className="mb-4">Detalle del Producto</h1>
+          <div className="text-center">
+            <h1 className="mb-4">Detalle del Producto</h1>
+          </div>
           <Row>
-            <Col md={4}>
+            <Col md={5}>
               <Card.Img
                 variant="top"
-                src={product.imgPortada}
+                src={
+                  "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                }
                 alt={product.titulo}
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "100%", height: "auto", objectFit: "contain" }}
               />
             </Col>
-            <Col md={8}>
+            <Col md={7}>
               <Card.Body className="text-left">
                 <Card.Title>{product.titulo}</Card.Title>
                 <Card.Text>

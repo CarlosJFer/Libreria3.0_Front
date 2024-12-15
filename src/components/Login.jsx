@@ -36,8 +36,8 @@ function Login() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div
-            className="card shadow border-0 rounded"
-            style={{ backgroundColor: "rgba(0, 102, 31, 0.8)" }}
+            className="card shadow border-1 border border-secondary rounded"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}
           >
             <div className="card-body p-5">
               <h2 className="text-center mb-4 text-white">Iniciar Sesión</h2>
@@ -66,7 +66,7 @@ function Login() {
                   />
                   <label htmlFor="password">Contraseña</label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100 py-2">
+                <button type="submit" className="btn btn-secondary w-100 py-2">
                   Iniciar Sesión
                 </button>
               </form>
