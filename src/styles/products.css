@@ -1,0 +1,44 @@
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
+}
+
+.product-card img {
+  object-fit: cover;
+  width: 100%;
+  height: 70%; /* Ajustar la altura de la imagen */
+}
+
+.card-body {
+  height: 30%; /* Ajustar la altura del cuerpo */
+}
+
+.btn-success.custom-buy-button {
+  background-color: #218838; /* Verde más oscuro */
+  border-color: #1e7e34;
+  transition: all 0.3s ease-in-out;
+  font-size: 1rem; /* Tamaño de fuente más pequeño */
+  width: auto; /* Ajuste del ancho para que no ocupe todo el espacio */
+}
+
+.btn-success.custom-buy-button:hover {
+  background-color: #28a745; /* Verde más brillante */
+  border-color: #28a745; /* Borde a juego */
+  transform: scale(1.05); /* Pequeño aumento de tamaño */
+}
+
+.btn-success.custom-buy-button:active {
+  background-color: #1e7e34; /* Verde aún más oscuro al hacer clic */
+  border-color: #1c7430; /* Borde a juego */
+}
+
+.text-start {
+  text-align: left; /* Asegurar que el texto esté alineado a la izquierda */
+}

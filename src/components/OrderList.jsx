@@ -1,58 +1,50 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getUsers, deleteUser } from "../redux/usersSlice";
+import { getOrders, deleteOrder } from "../redux/orderSlice";
 import { useEffect, useState } from "react";
 
-function Users() {
-  const users = useSelector((state) => state.users);
+function OrderList() {
+  const orders = useSelector((state) => state.orders);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios("http://localhost:3000/api/users", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => dispatch(getUsers(res.data)))
+    axios("http://localhost:3000/api/order")
+      .then((res) => dispatch(getOrders(res.data)))
       .catch((err) => console.error(err));
   }, [dispatch]);
 
   const handlerDelete = (_id) => {
-    const token = localStorage.getItem("token");
-    if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    if (window.confirm("¿Estás seguro de que deseas eliminar esta orden?")) {
       axios
-        .delete(`http://localhost:3000/api/users/${_id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .delete(`http://localhost:3000/api/order/${_id}`)
         .then(() => {
-          dispatch(deleteUser(_id));
+          dispatch(deleteOrder(_id));
         })
         .catch((err) => {
           console.error(err);
-          alert("Error al eliminar el usuario del servidor.");
+          alert("Error al eliminar la orden del servidor.");
         });
     }
   };
 
-  const handlerEdit = (user) => {
-    navigate(`/user-form/${user._id}`);
+  const handlerEdit = (order) => {
+    navigate(`/order-form/${order._id}`);
   };
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredOrders = orders.filter((order) =>
+    order.estado.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container-fluid p-4">
+    <div className="container-fluid p-4 mt-5">
       <div className="card shadow">
         <div className="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
-          <h2 className="mb-0">Gestión de Usuarios</h2>
-          <Link to="/user-form" className="btn btn-light">
-            <i className="fas fa-plus me-2"></i>Nuevo Usuario
+          <h2 className="mb-0">Gestión de Órdenes</h2>
+          <Link to="/order-form" className="btn btn-light">
+            <i className="fas fa-plus me-2"></i>Nueva Orden
           </Link>
         </div>
         <div className="card-body">
@@ -65,7 +57,7 @@ function Users() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscar usuarios por nombre o email"
+                  placeholder="Buscar órdenes por nombre o descripción"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -77,40 +69,40 @@ function Users() {
             <table className="table table-striped table-hover">
               <thead className="table-gray">
                 <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Rol</th>
+                  <th>ID</th>
+                  <th>Fecha</th>
+                  <th>Método de pago</th>
+                  <th>Estado</th>
+                  <th>Total</th>
                   <th className="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredUsers.length === 0 ? (
+                {filteredOrders.length === 0 ? (
                   <tr>
-                    <td colSpan="4" className="text-center text-muted">
-                      No se encontraron usuarios
+                    <td colSpan="6" className="text-center text-muted">
+                      No se encontraron órdenes
                     </td>
                   </tr>
                 ) : (
-                  filteredUsers.map((user) => (
-                    <tr key={user._id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        <span className="">
-                          {user.role === "admin" ? "Administrador" : "Usuario"}
-                        </span>
-                      </td>
+                  filteredOrders.map((order) => (
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>{order.fecha}</td>
+                      <td>{order.metodoPago}</td>
+                      <td>{order.estado}</td>
+                      <td>{order.total.$numberDecimal}</td>
                       <td className="text-center">
                         <div className="btn-group" role="group">
                           <button
-                            onClick={() => handlerEdit(user)}
+                            onClick={() => handlerEdit(order)}
                             className="btn btn-sm btn-outline-primary"
                             title="Editar"
                           >
                             <i className="fas fa-edit"></i>
                           </button>
                           <button
-                            onClick={() => handlerDelete(user._id)}
+                            onClick={() => handlerDelete(order._id)}
                             className="btn btn-sm btn-outline-danger"
                             title="Eliminar"
                           >
@@ -126,11 +118,11 @@ function Users() {
           </div>
         </div>
         <div className="card-footer text-muted">
-          Total de usuarios: {filteredUsers.length}
+          Total de órdenes: {filteredOrders.length}
         </div>
       </div>
     </div>
   );
 }
 
-export default Users;
+export default OrderList;

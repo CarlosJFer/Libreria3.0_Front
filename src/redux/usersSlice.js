@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Acción asíncrona para obtener datos del usuario
+/* Acción asíncrona para obtener datos del usuario
 export const fetchUserData = createAsyncThunk(
   "users/fetchUserData",
   async (userId, { rejectWithValue }) => {
@@ -13,21 +13,29 @@ export const fetchUserData = createAsyncThunk(
       return rejectWithValue(error.message); // Maneja errores
     }
   }
-);
+);*/
 
 const usersSlice = createSlice({
   name: "users",
-  initialState: {
-    userData: [], // Agregar el estado del perfil de usuario
-    loading: false,
-    error: null,
-  },
+  initialState: [],
   reducers: {
-    getUser: (state, action) => {
-      state.userData = action.payload;
+    getUsers: (state, action) => {
+      return action.payload; // Sobrescribe el estado con la lista de usuarios
+    },
+    createUser: (state, action) => {
+      state.push(action.payload); // Agrega un nuevo usuario
+    },
+    deleteUser: (state, action) => {
+      return state.filter((user) => user._id !== action.payload); // Filtra el usuario eliminado
+    },
+    updateUser: (state, action) => {
+      const index = state.findIndex((user) => user._id === action.payload._id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
     },
   },
-  extraReducers: (builder) => {
+  /*extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.pending, (state) => {
         state.loading = true;
@@ -41,8 +49,9 @@ const usersSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-    },
+    },*/
 });
 
-export const { getUser } = usersSlice.actions;
+export const { getUsers, createUser, deleteUser, updateUser } =
+  usersSlice.actions;
 export default usersSlice.reducer;
