@@ -22,9 +22,9 @@ function Login() {
 
       const { token, user } = response.data;
       localStorage.setItem("token", token);
-      login(user._doc);
-      console.log(user._doc);
-      navigate(`/${user._doc._id}`);
+      login(user);
+      console.log(user);
+      navigate(`/${user._id}`);
     } catch (err) {
       console.error(err);
       alert("Credenciales incorrectas o error de red");

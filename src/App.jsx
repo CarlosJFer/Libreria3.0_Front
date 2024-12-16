@@ -22,35 +22,35 @@ function App() {
     <>
       <div className="app">
         <Routes>
-          //Home no logeado
+          {/*Home no logeado*/}
           <Route path="/" element={<Home />} />
-          //Home logeado
+          {/*Home logeado*/}
           <Route path="/:id" element={<Home />} />
-          //Mis libros
+          {/*Mis libros*/}
           <Route path="/mislibros/:id" element={<MisLibros />} />
-          //Mi perfil
+          {/*Mi perfil*/}
           <Route path="/perfil/:id" element={<Perfil />} />
-          //Login
+          {/*Login*/}
           <Route path="/login" element={<Login />} />
-          //Register
+          {/* //Register */}
           <Route path="/register" element={<Register />} />
-          //Gestión Productos
+          {/* //Gestión Productos */}
           <Route path="/productos" element={<PaginaCatalogo />} />
-          //Crear productos
+          {/* //Crear productos */}
           <Route path="/post-form" element={<PostForm />} />
-          //Update de productos
+          {/* //Update de productos */}
           <Route path="/post-form/:id" element={<PostForm />} />
-          //Gestion de usuarios
+          {/* //Gestion de usuarios */}
           <Route path="/usuarios" element={<Users />} />
-          //Crear usuario
+          {/* //Crear usuario */}
           <Route path="/user-form" element={<UserForm />} />
-          //Update usuario
+          {/* //Update usuario */}
           <Route path="/user-form/:id" element={<UserForm />} />
-          //Gestion ordenes
+          {/* //Gestion ordenes */}
           <Route path="/ordenes" element={<OrderList />} />
-          //Crear orden
+          {/* //Crear orden */}
           <Route path="/order-form" element={<OrderForm />} />
-          //Update orden
+          {/* //Update orden */}
           <Route path="/order-form/:id" element={<OrderFormUser />} />
           {/* Agrega otras rutas aquí */}
         </Routes>
