@@ -41,7 +41,7 @@ function OrderList() {
   return (
     <div className="container-fluid p-4 mt-5">
       <div className="card shadow">
-        <div className="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+        <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center ">
           <h2 className="mb-0 text-center">Gestión de Órdenes</h2>{" "}
           {/* Centramos el título */}
           <Link to="/order-form" className="btn btn-light">

@@ -26,7 +26,11 @@ function PaginaCatalogo() {
   return (
     <div className="col-12 container-fluid bg-light w-100 rounded">
       <div className="row d-flex justify-content-center bg-dark border border-secondary rounded p-2 ">
-        <div className="col-3 d-flex justify-content-center rounded-5"></div>
+        <div className="col-3 d-flex justify-content-center rounded-5">
+          <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h2 className="mb-0">Librería </h2>
+          </div>
+        </div>
         <div className="col-9 d-flex justify-content-center card-header rounded">
           <form className="form-inline my-lg-0 w-75">
             <input
