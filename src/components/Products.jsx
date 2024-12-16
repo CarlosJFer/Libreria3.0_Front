@@ -8,7 +8,7 @@ import { AuthContext } from "./AuthContext";
 import { addCart } from "../redux/cartSlice";
 
 function Products({ selectedGenres, searchQuery }) {
-  const { isAuthenticated, isAdmin } = useContext(AuthContext);
+  const { isAuthenticated, user, isAdmin } = useContext(AuthContext);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -120,18 +120,26 @@ function Products({ selectedGenres, searchQuery }) {
                       </>
                     ) : (
                       <>
-                        <button
-                          onClick={() => handleAddCart(product)}
-                          className="btn btn-primary"
-                        >
-                          Agregar
-                        </button>
-                        <button
-                          onClick={() => handlerOrder(product)}
-                          className="btn btn-success custom-buy-button"
-                        >
-                          Comprar
-                        </button>
+                        <div className="d-flex w-100 justify-content-center">
+                          <Link
+                            onClick={() => handlerOrder(product)}
+                            className="btn btn-outline-dark m-2"
+                          >
+                            Ver
+                          </Link>
+                          {isAuthenticated && user ? (
+                            <Link
+                              onClick={() => handleAddCart(product)}
+                              className="btn btn-success m-2"
+                            >
+                              Agregar
+                            </Link>
+                          ) : (
+                            <Link to={"/login"} className="btn btn-success m-2">
+                              Agregar
+                            </Link>
+                          )}
+                        </div>
                       </>
                     )}
                   </div>

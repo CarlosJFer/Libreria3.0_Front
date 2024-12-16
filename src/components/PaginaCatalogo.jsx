@@ -40,45 +40,51 @@ function PaginaCatalogo() {
           </form>
         </div>
       </div>
-      <div className="row d-flex justify-content-center  ">
+      <div className="row d-flex justify-content-center mt-4 ">
         <div className="col-3 text-left  ">
-          <div className="rounded border border-2 m-2 pb-2 ">
-            <div className="card-header  rounded p-2 bg-light text-dark text-center">
-              <h5>Géneros</h5>
-              <hr />
-            </div>
-            <div className="card-body d-flex align-items-start flex-column m-3 mt-0 ">
-              {[
-                "Novela",
-                "Cuentos",
-                "CienciaFiccion",
-                "Fantasía",
-                "Romance",
-                "MisterioThriller",
-                "Terror",
-                "Drama",
-                "Historica",
-              ].map((genre) => (
-                <div className="form-check" key={genre}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value={genre}
-                    id={`checkbox-${genre}`}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label
-                    className="form-check-label"
-                    htmlFor={`checkbox-${genre}`}
-                  >
-                    {genre.charAt(0).toUpperCase() + genre.slice(1)}
-                  </label>
-                </div>
-              ))}
+          <div className="container-fluid">
+            <div className="card shadow-sm mb-3">
+              <div className="card-header bg-dark text-white text-center">
+                <h4 className="mb-0">Géneros</h4>
+              </div>
+              <div className="card-body p-4">
+                <ul className="list-group list-group-flush">
+                  {[
+                    "Novela",
+                    "Cuentos",
+                    "Ciencia Ficción",
+                    "Fantasía",
+                    "Romance",
+                    "Misterio Thriller",
+                    "Terror",
+                    "Drama",
+                    "Histórica",
+                  ].map((genre) => (
+                    <li
+                      key={genre}
+                      className="list-group-item d-flex align-items-center"
+                    >
+                      <input
+                        className="form-check-input me-3"
+                        type="checkbox"
+                        value={genre}
+                        id={`checkbox-${genre.replace(/\s+/g, "")}`}
+                        onChange={handleCheckboxChange}
+                      />
+                      <label
+                        className="form-check-label stretched-link"
+                        htmlFor={`checkbox-${genre.replace(/\s+/g, "")}`}
+                      >
+                        {genre}
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
           <div
-            className={`rounded border border-2 m-2 pb-2 ${
+            className={`rounded pb-2 ${
               !isAuthenticated || isAdmin ? "disabled opacity-100" : ""
             }`}
           >

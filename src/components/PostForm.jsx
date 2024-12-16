@@ -20,6 +20,8 @@ function PostForm() {
     descripcion: "",
     imgPortada: "",
     precio: "",
+    urlLibro: "",
+    downloadUrl: "",
   });
 
   useEffect(() => {
@@ -54,7 +56,6 @@ function PostForm() {
           );
           dispatch(createProduct(response.data));
         }
-        // navigate("/");
         navigate("/productos");
       }
     } catch (error) {
@@ -182,6 +183,34 @@ function PostForm() {
             className="form-control"
             placeholder="Imagen de Portada"
           />
+        </div>
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label htmlFor="urlLibro" className="form-label">
+              URL del Libro
+            </label>
+            <input
+              onChange={handlerChange}
+              name="urlLibro"
+              value={inputs.urlLibro}
+              type="text"
+              className="form-control"
+              placeholder="URL del Libro"
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="downloadUrl" className="form-label">
+              URL de Descarga
+            </label>
+            <input
+              onChange={handlerChange}
+              name="downloadUrl"
+              value={inputs.downloadUrl}
+              type="text"
+              className="form-control"
+              placeholder="URL de Descarga"
+            />
+          </div>
         </div>
         <div className="d-flex justify-content-between">
           <button

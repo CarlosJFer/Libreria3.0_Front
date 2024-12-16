@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartSlice";
 
 export const AuthContext = createContext();
 
@@ -8,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [axiosInstance, setAxiosInstance] = useState(null);
+  const dispatch = useDispatch();
 
   const login = (userData) => {
     const token = localStorage.getItem("token");
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch(clearCart());
     setIsAuthenticated(false);
     setUser(null);
     setIsAdmin(false);
@@ -65,3 +69,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+export default AuthProvider;

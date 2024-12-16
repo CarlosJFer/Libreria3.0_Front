@@ -90,7 +90,7 @@ const Navbar = () => {
                       </li>
                       <li className="nav-item">
                         <NavLink className="nav-link" to={`/cart/${user._id}`}>
-                          <FaShoppingCart />
+                          Carrito <FaShoppingCart />
                           {cartItemCount > 0 && (
                             <span className="cartItemCount">
                               {cartItemCount}
@@ -141,7 +141,7 @@ const Navbar = () => {
             </ul>
 
             {/* Este bloque mueve el botón Cerrar Sesión a la derecha */}
-            {isAuthenticated && (
+            {isAuthenticated && user && (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/login" onClick={logout}>
