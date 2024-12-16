@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { createOrder, updateOrder } from "../redux/orderSlice";
 import axios from "axios";
-import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
+import { Card, Button, Container, Form } from "react-bootstrap";
 import { AuthContext } from "./AuthContext";
 
 const OrderForm = () => {
@@ -27,9 +27,12 @@ const OrderForm = () => {
     ],
   });
 
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     if (existingOrder) {
       setInputs(existingOrder);
+      setTotal(calculateTotal(existingOrder.items));
     }
   }, [existingOrder]);
 
@@ -46,22 +49,26 @@ const OrderForm = () => {
     const items = [...inputs.items];
     items[index] = {
       ...items[index],
-      [propiedad]: valor,
+      [propiedad]: parseFloat(valor) || 0,
     };
     setInputs({
       ...inputs,
       items,
     });
+    setTotal(calculateTotal(items));
+  };
+
+  const calculateTotal = (items) => {
+    return items
+      .reduce((sum, item) => sum + parseFloat(item.precio) * item.cantidad, 0)
+      .toFixed(2);
   };
 
   const handlerClick = async (e) => {
     e.preventDefault();
     try {
       const fecha = new Date().toISOString();
-      const total = inputs.items.reduce(
-        (sum, item) => sum + parseFloat(item.precio) * item.cantidad,
-        0
-      );
+      const total = calculateTotal(inputs.items);
       const orderData = { ...inputs, fecha, total };
 
       if (id) {
@@ -166,6 +173,11 @@ const OrderForm = () => {
                   }
                 />
               </Form.Group>
+              <div className="d-flex justify-content-between">
+                <Form.Text className="text-muted">
+                  Subtotal: ${(item.cantidad * item.precio).toFixed(2)}
+                </Form.Text>
+              </div>
             </div>
           ))}
           <div className="d-flex justify-content-between">
@@ -175,6 +187,9 @@ const OrderForm = () => {
             <Button variant="primary" type="submit" onClick={handlerClick}>
               {id ? "Actualizar Orden" : "Crear Orden"}
             </Button>
+          </div>
+          <div className="mt-3">
+            <h5>Total: ${total}</h5>
           </div>
         </Form>
       </Card>
