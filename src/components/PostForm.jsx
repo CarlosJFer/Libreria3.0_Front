@@ -70,10 +70,10 @@ function PostForm() {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">
-        {id ? "Editar Producto" : "Crear Producto"}
-      </h2>
       <form className="p-4 border rounded shadow-sm bg-light">
+        <h2 className="text-center mb-4">
+          {id ? "Editar Producto" : "Crear Producto"}
+        </h2>
         <div className="row mb-3">
           <div className="col-md-6">
             <label htmlFor="ISBN" className="form-label">
