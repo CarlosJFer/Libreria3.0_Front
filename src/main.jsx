@@ -1,6 +1,6 @@
 //import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { AuthProvider } from "./components/AuthContext";
+import AuthProvider from "./components/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
@@ -12,11 +12,11 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // createRoot(document.getElementById("root")).render(<App />);
 createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <Router>
-      <Provider store={store}>
+  <Provider store={store}>
+    <AuthProvider>
+      <Router>
         <App />
-      </Provider>
-    </Router>
-  </AuthProvider>
+      </Router>
+    </AuthProvider>
+  </Provider>
 );

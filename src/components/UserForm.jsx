@@ -87,7 +87,7 @@ function UserForm() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
-            <div className="card-header bg-primary text-white">
+            <div className="card-header bg-dark text-white">
               <h2 className="text-center mb-0">
                 {id ? "Editar Usuario" : "Crear Usuario"}
               </h2>

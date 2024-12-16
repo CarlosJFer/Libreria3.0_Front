@@ -14,6 +14,7 @@ import OrderList from "./components/OrderList";
 import OrderForm from "./components/OrderForm";
 import MisLibros from "./components/MisLibros";
 import Perfil from "./components/Perfil";
+import Cart from "./components/Cart";
 
 import OrderFormUser from "./components/OrderFormUser";
 
@@ -52,7 +53,8 @@ function App() {
           <Route path="/order-form" element={<OrderForm />} />
           //Update orden
           <Route path="/order-form/:id" element={<OrderFormUser />} />
-          {/* Agrega otras rutas aquí */}
+          //Carrito
+          <Route path="/cart/:id" element={<Cart />} />
         </Routes>
         <Navbar />
         {/* <Footer></Footer> */}

@@ -3,14 +3,18 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProducts, deleteProduct } from "../redux/productsSlice";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { AuthContext } from "./AuthContext";
+import { addCart } from "../redux/cartSlice";
+import { Modal, Button } from "react-bootstrap";
 
 function Products({ selectedGenres, searchQuery }) {
-  const { isAuthenticated, isAdmin } = useContext(AuthContext);
+  const { isAuthenticated, user, isAdmin } = useContext(AuthContext);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     axios("http://localhost:3000/api/products")
@@ -39,6 +43,28 @@ function Products({ selectedGenres, searchQuery }) {
     id
       ? navigate(`/order-form/${id}`, { state: { product } })
       : navigate("/login");
+  };
+
+  const handleAddCart = (product) => {
+    dispatch(
+      addCart({
+        id: product._id,
+        imgPortada: product.imgPortada,
+        titulo: product.titulo,
+        precio: product.precio,
+        quantity: 0,
+      })
+    );
+  };
+
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
   };
 
   // Filtrar productos según géneros seleccionados y consulta de búsqueda
@@ -75,7 +101,12 @@ function Products({ selectedGenres, searchQuery }) {
             >
               <div className="card my-3 w-100 product-card">
                 <img
-                  src="https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                  // src={
+                  //   product.imgPortada
+                  // }
+                  src={
+                    "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                  }
                   alt="Portada"
                   className="card-img-top img-fluid"
                 />
@@ -90,7 +121,7 @@ function Products({ selectedGenres, searchQuery }) {
                       Precio: ${product.precio}
                     </p>
                   </div>
-                  <div className=" d-flex justify-content-end">
+                  <div className="d-flex justify-content-end">
                     {isAdmin ? (
                       <>
                         <button
@@ -107,12 +138,28 @@ function Products({ selectedGenres, searchQuery }) {
                         </button>
                       </>
                     ) : (
-                      <button
-                        onClick={() => handlerOrder(product)}
-                        className="btn btn-success custom-buy-button"
-                      >
-                        Comprar
-                      </button>
+                      <>
+                        <div className="d-flex w-100 justify-content-center">
+                          <button
+                            onClick={() => handleShowModal(product)}
+                            className="btn btn-outline-dark m-2"
+                          >
+                            Ver
+                          </button>
+                          {isAuthenticated && user ? (
+                            <button
+                              onClick={() => handleAddCart(product)}
+                              className="btn btn-success m-2"
+                            >
+                              Agregar
+                            </button>
+                          ) : (
+                            <Link to={"/login"} className="btn btn-success m-2">
+                              Agregar
+                            </Link>
+                          )}
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -121,6 +168,66 @@ function Products({ selectedGenres, searchQuery }) {
           ))}
         </div>
       ))}
+
+      {selectedProduct && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>{selectedProduct.titulo}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="d-flex">
+              <img
+                src={
+                  "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                }
+                alt="Portada"
+                className="img-fluid me-3"
+                style={{ width: "150px" }}
+              />
+              <div>
+                <p>
+                  <strong>ISBN:</strong> {selectedProduct.ISBN}
+                </p>
+                <p>
+                  <strong>Autor:</strong> {selectedProduct.autor}
+                </p>
+                <p>
+                  <strong>Editorial:</strong> {selectedProduct.editorial}
+                </p>
+                <p>
+                  <strong>Género:</strong> {selectedProduct.genero}
+                </p>
+                <p>
+                  <strong>Descripción:</strong> {selectedProduct.descripcion}
+                </p>
+                <p>
+                  <strong>Precio:</strong> ${selectedProduct.precio}
+                </p>
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cerrar
+            </Button>
+            {isAuthenticated && user ? (
+              <Button
+                variant="success"
+                onClick={() => {
+                  handleAddCart(selectedProduct);
+                  handleCloseModal();
+                }}
+              >
+                Agregar al Carrito
+              </Button>
+            ) : (
+              <Link to={"/login"} className="btn btn-secondary">
+                Iniciar Sesión
+              </Link>
+            )}
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }

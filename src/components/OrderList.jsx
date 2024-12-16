@@ -41,8 +41,9 @@ function OrderList() {
   return (
     <div className="container-fluid p-4 mt-5">
       <div className="card shadow">
-        <div className="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
-          <h2 className="mb-0">Gestión de Órdenes</h2>
+        <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center ">
+          <h2 className="mb-0 text-center">Gestión de Órdenes</h2>{" "}
+          {/* Centramos el título */}
           <Link to="/order-form" className="btn btn-light">
             <i className="fas fa-plus me-2"></i>Nueva Orden
           </Link>
@@ -74,13 +75,16 @@ function OrderList() {
                   <th>Método de pago</th>
                   <th>Estado</th>
                   <th>Total</th>
+                  <th>User ID</th> {/* Añadimos la columna User ID */}
                   <th className="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredOrders.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="text-center text-muted">
+                    <td colSpan="7" className="text-center text-muted">
+                      {" "}
+                      {/* Actualizamos el colspan */}
                       No se encontraron órdenes
                     </td>
                   </tr>
@@ -92,6 +96,8 @@ function OrderList() {
                       <td>{order.metodoPago}</td>
                       <td>{order.estado}</td>
                       <td>{order.total.$numberDecimal}</td>
+                      <td>{order.userId}</td>{" "}
+                      {/* Añadimos el userId en la fila */}
                       <td className="text-center">
                         <div className="btn-group" role="group">
                           <button

@@ -3,10 +3,14 @@ import { AuthContext } from "./AuthContext";
 import { Link, NavLink } from "react-router-dom";
 import Login from "./Login";
 import "../styles/NavBar.css";
+import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const { isAuthenticated, isAdmin, user, logout } = useContext(AuthContext);
   console.log(user);
+  const cart = useSelector((state) => state.cart);
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
@@ -52,6 +56,11 @@ const Navbar = () => {
                           Gestión Órdenes
                         </NavLink>
                       </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to={`/${user._id}`}>
+                          Catálogo
+                        </NavLink>
+                      </li>
                     </>
                   ) : (
                     <>
@@ -74,13 +83,23 @@ const Navbar = () => {
                           Mis libros
                         </NavLink>
                       </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to={`/${user._id}`}>
+                          Catálogo
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" to={`/cart/${user._id}`}>
+                          Carrito <FaShoppingCart />
+                          {cartItemCount > 0 && (
+                            <span className="cartItemCount">
+                              {cartItemCount}
+                            </span>
+                          )}
+                        </NavLink>
+                      </li>
                     </>
                   )}
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to={`/${user._id}`}>
-                      Catálogo
-                    </NavLink>
-                  </li>
                 </>
               ) : (
                 <>
@@ -122,7 +141,7 @@ const Navbar = () => {
             </ul>
 
             {/* Este bloque mueve el botón Cerrar Sesión a la derecha */}
-            {isAuthenticated && (
+            {isAuthenticated && user && (
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/login" onClick={logout}>
