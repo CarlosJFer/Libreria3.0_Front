@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Products from "./Products"; // Importación corregida
+import Products from "./Products";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import Cart from "./Cart";
 
 function PaginaCatalogo() {
   const { isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -81,48 +82,7 @@ function PaginaCatalogo() {
               !isAuthenticated || isAdmin ? "disabled opacity-100" : ""
             }`}
           >
-            <div className="card-header rounded bg-light text-dark text-center">
-              <h5>Carrito 🛒 </h5>
-            </div>
-            <div className="card-body justify-content-center w-30">
-              <table className="table ">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>~</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Aquí se agregarán los productos del carrito */}
-                  <tr>
-                    <td>Producto</td>
-                    <td>$100</td>
-                    <td>
-                      <button
-                        className="btn btn-sm"
-                        disabled={!isAuthenticated || isAdmin}
-                      >
-                        ❌
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h5>Total: $100</h5>
-              <button
-                className="btn btn-primary btn-sm"
-                disabled={!isAuthenticated || isAdmin}
-              >
-                Pagar
-              </button>
-              <button
-                className="btn btn-secondary btn-sm"
-                disabled={!isAuthenticated || isAdmin}
-              >
-                Vaciar carrito
-              </button>
-            </div>
+            <Cart isAuthenticated={isAuthenticated} isAdmin={isAdmin}></Cart>
           </div>
         </div>
 

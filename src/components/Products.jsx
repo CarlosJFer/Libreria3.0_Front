@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProducts, deleteProduct } from "../redux/productsSlice";
 import { useEffect, useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { addCart } from "../redux/cartSlice";
 
 function Products({ selectedGenres, searchQuery }) {
   const { isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -61,6 +62,17 @@ function Products({ selectedGenres, searchQuery }) {
     }
     return rows;
   };
+  const handleAddCart = (product) => {
+    dispatch(
+      addCart({
+        id: product._id,
+        imgPortada: product.imgPortada,
+        titulo: product.titulo,
+        precio: product.precio,
+        quantity: 0,
+      })
+    );
+  };
 
   const productRows = groupProductsInRows(filteredProducts);
 
@@ -107,12 +119,20 @@ function Products({ selectedGenres, searchQuery }) {
                         </button>
                       </>
                     ) : (
-                      <button
-                        onClick={() => handlerOrder(product)}
-                        className="btn btn-success custom-buy-button"
-                      >
-                        Comprar
-                      </button>
+                      <>
+                        <button
+                          onClick={() => handleAddCart(product)}
+                          className="btn btn-primary"
+                        >
+                          Agregar
+                        </button>
+                        <button
+                          onClick={() => handlerOrder(product)}
+                          className="btn btn-success custom-buy-button"
+                        >
+                          Comprar
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
