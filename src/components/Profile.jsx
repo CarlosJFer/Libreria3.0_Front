@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../redux/usersSlice";
-import { Container } from "react-bootstrap";
+import { Container, Tab, Tabs, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ProfileForm from "./ProfileForm";
 import Favorites from "./Favorites";
+import avatarUsuario from "../assets/coolUser100.jpg";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -27,10 +28,22 @@ function Profile() {
 
   return (
     <Container className="mt-5">
-        <h1>Hola {userData?.name}</h1>
+      <br />
+      <div className="d-flex justify-content-center mb-3">
+      <Image src={avatarUsuario} roundedCircle />
+      </div>
+      <Tabs
+      defaultActiveKey="profileForm"
+      id="uncontrolled-tab"
+      className="mb-3"
+    >
+      <Tab eventKey="profileForm" title="Mi Perfil">
       <ProfileForm userData={userData} />
-      <hr />
+      </Tab>
+      <Tab eventKey="favorites" title="Mis Favoritos">
       <Favorites favorites={userData?.favorites} />
+      </Tab>
+      </Tabs>
     </Container>
   );
 }

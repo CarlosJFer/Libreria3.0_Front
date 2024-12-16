@@ -5,7 +5,7 @@ import Navbar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Footer from "./components/Footer";
+//import Footer from "./components/Footer";
 import PaginaCatalogo from "./components/PaginaCatalogo";
 import PostForm from "./components/PostForm";
 import Users from "./components/Users";
@@ -13,7 +13,7 @@ import UserForm from "./components/UserForm";
 import OrderList from "./components/OrderList";
 import OrderForm from "./components/OrderForm";
 import MisLibros from "./components/MisLibros";
-import Perfil from "./components/Perfil";
+import Profile from "./components/Profile";
 
 import OrderFormUser from "./components/OrderFormUser";
 
@@ -29,7 +29,7 @@ function App() {
           {/*Mis libros*/}
           <Route path="/mislibros/:id" element={<MisLibros />} />
           {/*Mi perfil*/}
-          <Route path="/perfil/:id" element={<Perfil />} />
+          <Route path="/profile/:id" element={<Profile />} />
           {/*Login*/}
           <Route path="/login" element={<Login />} />
           {/* //Register */}

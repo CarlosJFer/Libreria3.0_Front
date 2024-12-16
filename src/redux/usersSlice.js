@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-/* Acción asíncrona para obtener datos del usuario
+//Acción asíncrona para obtener datos del usuario
 export const fetchUserData = createAsyncThunk(
   "users/fetchUserData",
   async (userId, { rejectWithValue }) => {
@@ -13,7 +13,7 @@ export const fetchUserData = createAsyncThunk(
       return rejectWithValue(error.message); // Maneja errores
     }
   }
-);*/
+);
 
 const usersSlice = createSlice({
   name: "users",
@@ -35,7 +35,8 @@ const usersSlice = createSlice({
       }
     },
   },
-  /*extraReducers: (builder) => {
+
+  extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.pending, (state) => {
         state.loading = true;
@@ -49,7 +50,7 @@ const usersSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-    },*/
+    },
 });
 
 export const { getUsers, createUser, deleteUser, updateUser } =
