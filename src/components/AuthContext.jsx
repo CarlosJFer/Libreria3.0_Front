@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     setIsAuthenticated(true);
+    console.log(userData);
     setUser(userData);
     setAxiosInstance(authAxios);
 
