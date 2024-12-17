@@ -11,7 +11,7 @@ function OrderList() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    axios("https://libreria3-0-back.onrender.com/api/order")
+    axios("http://localhost:3000/api/order")
       .then((res) => dispatch(getOrders(res.data)))
       .catch((err) => console.error(err));
   }, [dispatch]);
@@ -19,7 +19,7 @@ function OrderList() {
   const handlerDelete = (_id) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta orden?")) {
       axios
-        .delete(`https://libreria3-0-back.onrender.com/api/order/${_id}`)
+        .delete(`http://localhost:3000/api/order/${_id}`)
         .then(() => {
           dispatch(deleteOrder(_id));
         })

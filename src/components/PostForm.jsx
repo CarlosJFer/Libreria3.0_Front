@@ -45,13 +45,13 @@ function PostForm() {
       if (inputs) {
         if (id) {
           const response = await axios.put(
-            `https://libreria3-0-back.onrender.com/api/products/${id}`,
+            `http://localhost:3000/api/products/${id}`,
             inputs
           );
           dispatch(updateProduct(response.data));
         } else {
           const response = await axios.post(
-            "https://libreria3-0-back.onrender.com/api/products",
+            "http://localhost:3000/api/products",
             inputs
           );
           dispatch(createProduct(response.data));

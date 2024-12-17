@@ -18,7 +18,7 @@ function Home() {
 
   const [books, setBooks] = useState([]);
   useEffect(() => {
-    axios("https://libreria3-0-back.onrender.com/api/products")
+    axios("http://localhost:3000/api/products")
       .then((res) => setBooks(res.data))
       .catch((err) => console.error(err));
   }, []);
