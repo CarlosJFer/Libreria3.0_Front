@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
 import { clearCart, removeFromCart, updateQuantity } from "../redux/cartSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 function Cart({ isAuthenticated, isAdmin }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
@@ -25,6 +26,8 @@ function Cart({ isAuthenticated, isAdmin }) {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  const isCartPage = location.pathname === `/cart/${id}`;
 
   return (
     <div className="container mt-4 w-80">
@@ -72,7 +75,7 @@ function Cart({ isAuthenticated, isAdmin }) {
                       <td>
                         <button
                           onClick={() => handleRemove(item.id)}
-                          className="btn btn-danger btn-sm"
+                          className="btn btn-outline-danger "
                         >
                           <MdDeleteForever />
                         </button>
@@ -94,7 +97,13 @@ function Cart({ isAuthenticated, isAdmin }) {
               >
                 Vaciar
               </button>
-              <Link className="btn btn-success m-2">Comprar</Link>
+              {isCartPage ? (
+                <Link className="btn btn-success m-2">Comprar</Link>
+              ) : (
+                <Link to={`/cart/${id}`} className="btn btn-primary m-2">
+                  Ir al carrito
+                </Link>
+              )}
             </div>
           </div>
         </div>

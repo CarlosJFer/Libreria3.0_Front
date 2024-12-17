@@ -6,16 +6,28 @@ const CarouselItem = ({ book, onClick }) => {
       className="card h-100 d-flex flex-row bg-white text-dark border-0"
       onClick={onClick}
     >
-      <img
-        src={book.imgPortada || "https://via.placeholder.com/150?text=No+Image"}
-        alt="Portada"
-        className="card-img-left img-fluid"
-      />
-      <div className="card-body text-start">
-        <h5 className="card-title">{book.titulo}</h5>
-        <p className="card-text">Autor: {book.autor}</p>
-        <p className="card-text">Género: {book.genero}</p>
-        <p className="card-text">{book.descripcion}</p>
+      <div className="col-md-5 p-0">
+        <img
+          src={
+            book.imgPortada ||
+            "https://via.placeholder.com/300x400?text=No+Image"
+          }
+          alt="Portada"
+          className="img-fluid w-100 h-100"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+      <div className="col-md-7">
+        <div className="card-body text-start">
+          <h5 className="card-title">{book.titulo}</h5>
+          <p className="card-text">
+            <strong>Autor:</strong> {book.autor}
+          </p>
+          <p className="card-text">
+            <strong>Género:</strong> {book.genero}
+          </p>
+          <p className="card-text text-truncate">{book.descripcion}</p>
+        </div>
       </div>
     </div>
   );
