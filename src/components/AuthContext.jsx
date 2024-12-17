@@ -9,34 +9,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [axiosInstance, setAxiosInstance] = useState(null);
 
+  // Función login para iniciar sesión
   const login = (userData) => {
-    const token = localStorage.getItem("token");
-
-    // Crear una nueva instancia de axios con el token de autorización
-    const authAxios = axios.create({
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    setIsAuthenticated(true);
-    setUser(userData);
-    setAxiosInstance(authAxios);
-
-    userData.role === "admin" ? setIsAdmin(true) : setIsAdmin(false);
-  };
-
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
-    setIsAdmin(false);
-    setAxiosInstance(null); // Restablecer a axios original
-    localStorage.removeItem("token");
-  };
-
-  // Inicializar con token existente si hay uno
-  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const authAxios = axios.create({
@@ -46,9 +20,40 @@ export const AuthProvider = ({ children }) => {
         },
       });
       setAxiosInstance(authAxios);
-      setIsAuthenticated(true);
     }
-  }, []);
+
+    setIsAuthenticated(true);
+    setUser(userData);
+    userData.role === "admin" ? setIsAdmin(true) : setIsAdmin(false);
+  };
+
+  // Función logout para cerrar sesión
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    setIsAdmin(false);
+    setAxiosInstance(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+  };
+
+  // Verificar si hay un token almacenado al cargar el contexto
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("userData");
+
+    if (token && storedUser) {
+      const authAxios = axios.create({
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setAxiosInstance(authAxios);
+      setIsAuthenticated(true);
+      setUser(JSON.parse(storedUser));
+    }
+  }, []); // Se ejecuta solo al montar el componente
 
   return (
     <AuthContext.Provider
