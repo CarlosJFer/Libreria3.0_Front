@@ -17,7 +17,7 @@ function ProfileForm ({ userData, onSave }) {
   });
 
    // Almacenar los datos iniciales en el formulario
-   const enableEditing = () => {
+  const enableEditing = () => {
     reset(userData); // Resetea el formulario con los datos actuales
     setIsEditing(true); // Activar edición
   };

@@ -1,12 +1,50 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
 import { clearCart, removeFromCart, updateQuantity } from "../redux/cartSlice";
 import { Link, useParams, useLocation } from "react-router-dom";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
+import { selectFormattedCartItems } from "../redux/selectors"; // Importar el selector memoizado
+
+// Inicializar Mercado Pago con la clave API desde las variables de entorno
+initMercadoPago(process.env.REACT_APP_MERCADO_PAGO_KEY);
 
 function Cart({ isAuthenticated, isAdmin }) {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(selectFormattedCartItems); // Usar el selector memoizado
   const dispatch = useDispatch();
+  const [preferenceId, setPreferenceId] = useState(null);
+
+  // Función para crear la preferencia de pago
+  const createPreference = async () => {
+    const token = localStorage.getItem("token"); // Obtener el token del almacenamiento local
+    try {
+      const response = await axios.post(
+        "https://libreria3-0-back.onrender.com/create_preference",
+        {
+          items: cart, // Enviar los items con la estructura correcta
+          metodoPago: "Tarjeta de Crédito", // Asegúrate de enviar el método de pago también
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const { id } = response.data;
+      return id;
+    } catch (error) {
+      console.error("Error al crear la preferencia", error);
+      throw error;
+    }
+  };
+
+  const handleBuy = async () => {
+    const id = await createPreference();
+    id && setPreferenceId(id);
+  };
+
   const { id } = useParams();
   const location = useLocation();
 
@@ -19,7 +57,7 @@ function Cart({ isAuthenticated, isAdmin }) {
   };
 
   const total = cart.reduce(
-    (total, item) => total + item.quantity * item.precio,
+    (total, item) => total + item.cantidad * item.precio,
     0
   );
 
@@ -54,7 +92,7 @@ function Cart({ isAuthenticated, isAdmin }) {
                 </thead>
                 <tbody>
                   {cart.map((item) => (
-                    <tr key={item.id}>
+                    <tr key={item.productId}>
                       <td>{item.titulo}</td>
                       <td>${item.precio.toFixed(2)}</td>
                       <td>
@@ -64,18 +102,18 @@ function Cart({ isAuthenticated, isAdmin }) {
                           min="1"
                           onChange={(e) =>
                             handleUpdateQuantity(
-                              item.id,
+                              item.productId,
                               parseInt(e.target.value)
                             )
                           }
-                          value={item.quantity}
+                          value={item.cantidad}
                         />
                       </td>
-                      <td>${(item.quantity * item.precio).toFixed(2)}</td>
+                      <td>${(item.cantidad * item.precio).toFixed(2)}</td>
                       <td>
                         <button
-                          onClick={() => handleRemove(item.id)}
-                          className="btn btn-outline-danger "
+                          onClick={() => handleRemove(item.productId)}
+                          className="btn btn-danger btn-sm"
                         >
                           <MdDeleteForever />
                         </button>
@@ -98,7 +136,22 @@ function Cart({ isAuthenticated, isAdmin }) {
                 Vaciar
               </button>
               {isCartPage ? (
-                <Link className="btn btn-success m-2">Comprar</Link>
+                <>
+                  <Link className="btn btn-success m-2">Comprar</Link>
+                  <div>
+                    <button onClick={handleBuy} className="btn btn-primary">
+                      Pagar
+                    </button>
+                    {preferenceId && (
+                      <Wallet
+                        initialization={{
+                          preferenceId: preferenceId,
+                          redirectMode: "blank",
+                        }}
+                      />
+                    )}
+                  </div>
+                </>
               ) : (
                 <Link to={`/cart/${id}`} className="btn btn-primary m-2">
                   Ir al carrito
