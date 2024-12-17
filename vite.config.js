@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import dotenv from "dotenv";
 
-// https://vitejs.dev/config/
+dotenv.config();
+
 export default defineConfig({
   plugins: [react()],
   root: "", // Indica a Vite dónde buscar el index.html
@@ -12,4 +14,8 @@ export default defineConfig({
   server: {
     open: true, // Abre automáticamente el navegador
   },
+  define: {
+    'process.env': process.env
+  }
 });
+
