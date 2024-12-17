@@ -137,7 +137,7 @@ function OrderForm() {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
-            <div className="card-header bg-primary text-white">
+            <div className="card-header bg-dark text-white">
               <h2 className="text-center mb-0">
                 {id ? "Editar Orden" : "Crear Orden"}
               </h2>
@@ -188,7 +188,7 @@ function OrderForm() {
                   </select>
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Items</label>
+                  <label className="form-label">Items</label> <br />
                   <Button variant="primary" onClick={() => setShowModal(true)}>
                     Seleccionar Productos
                   </Button>

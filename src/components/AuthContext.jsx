@@ -1,13 +1,18 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartSlice";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [axiosInstance, setAxiosInstance] = useState(null);
+  const dispatch = useDispatch();
 
   // Función login para iniciar sesión
   const login = (userData) => {
@@ -29,6 +34,7 @@ export const AuthProvider = ({ children }) => {
 
   // Función logout para cerrar sesión
   const logout = () => {
+    dispatch(clearCart());
     setIsAuthenticated(false);
     setUser(null);
     setIsAdmin(false);
@@ -70,3 +76,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+export default AuthProvider;

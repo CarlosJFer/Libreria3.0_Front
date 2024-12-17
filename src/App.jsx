@@ -5,7 +5,7 @@ import Navbar from "./components/NavBar";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
-//import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import PaginaCatalogo from "./components/PaginaCatalogo";
 import PostForm from "./components/PostForm";
 import Users from "./components/Users";
@@ -14,13 +14,25 @@ import OrderList from "./components/OrderList";
 import OrderForm from "./components/OrderForm";
 import MisLibros from "./components/MisLibros";
 import Profile from "./components/profile/Profile"
+import Cart from "./components/Cart";
 
 import OrderFormUser from "./components/OrderFormUser";
+import "./styles/Footer.css";
+
+/*elementos del footer */
+
+
+import Acercade from "./components/Acercade";
+import PoliticaDePrivacidad from "./components/PoliticaDePrivacidad";
+
+
 
 function App() {
   return (
     <>
       <div className="app">
+      <Navbar />
+
         <Routes>
           {/*Home no logeado*/}
           <Route path="/" element={<Home />} />
@@ -52,11 +64,21 @@ function App() {
           <Route path="/order-form" element={<OrderForm />} />
           {/* //Update orden */}
           <Route path="/order-form/:id" element={<OrderFormUser />} />
-          {/* Agrega otras rutas aquí */}
+          {/*//Carrito*/}
+          <Route path="/cart/:id" element={<Cart />} />
+
+          
+
+          
+         
+          <Route path="/PoliticaDePrivacidad" element={<PoliticaDePrivacidad />} />
+          <Route path="/Acercade" element={<Acercade />} />
+           
         </Routes>
-        <Navbar />
-        {/* <Footer></Footer> */}
+
+        <Footer />
       </div>
+      
     </>
   );
 }
