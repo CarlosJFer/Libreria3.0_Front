@@ -1,25 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="fixed-bottom bg-dark text-white p-1 w-100">
-      <div className="container-fluid d-flex flex-column flex-sm-row justify-content-between">
+    <footer className="bg-dark text-white p-1 w-100 text-center">
+      <div className="container-fluid">
         <p>© 2024 Compañía, Inc. Todos los derechos reservados.</p>
-        <ul className="list-unstyled d-flex">
+        <p>Contacto: holalibreria3.0@gmail.com</p>
+        <ul className="list-unstyled d-flex justify-content-center mb-0">
           <li className="ms-3">
-            <a className="text-white" href="#">
-              Twitter
-            </a>
+            <Link className="text-white" to="/Acercade">Acerca de</Link>
           </li>
           <li className="ms-3">
-            <a className="text-white" href="#">
-              Instagram
-            </a>
-          </li>
-          <li className="ms-3">
-            <a className="text-white" href="#">
-              Facebook
-            </a>
+            <Link className="text-white" to="/PoliticaDePrivacidad">Políticas de Privacidad</Link>
           </li>
         </ul>
       </div>
