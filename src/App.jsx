@@ -17,11 +17,22 @@ import Perfil from "./components/Perfil";
 import Cart from "./components/Cart";
 
 import OrderFormUser from "./components/OrderFormUser";
+import "./styles/Footer.css";
+
+/*elementos del footer */
+
+
+import Acercade from "./components/Acercade";
+import PoliticaDePrivacidad from "./components/PoliticaDePrivacidad";
+
+
 
 function App() {
   return (
     <>
       <div className="app">
+      <Navbar />
+
         <Routes>
           //Home no logeado
           <Route path="/" element={<Home />} />
@@ -55,10 +66,19 @@ function App() {
           <Route path="/order-form/:id" element={<OrderFormUser />} />
           //Carrito
           <Route path="/cart/:id" element={<Cart />} />
+
+          
+
+          
+         
+          <Route path="/PoliticaDePrivacidad" element={<PoliticaDePrivacidad />} />
+          <Route path="/Acercade" element={<Acercade />} />
+           
         </Routes>
-        <Navbar />
-        {/* <Footer></Footer> */}
+
+        <Footer />
       </div>
+      
     </>
   );
 }
