@@ -19,7 +19,7 @@ function Cart({ isAuthenticated, isAdmin }) {
   const createPreference = async () => {
     const token = localStorage.getItem("token"); // Obtener el token del almacenamiento local
     try {
-      const response = await axios.post('http://localhost:3000/create_preference', {
+      const response = await axios.post('https://libreria3-0-back.onrender.com/create_preference', {
         items: cart, // Enviar los items con la estructura correcta
         metodoPago: 'Tarjeta de Crédito' // Asegúrate de enviar el método de pago también
       }, {

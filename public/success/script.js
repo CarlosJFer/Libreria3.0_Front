@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const orderId = urlParams.get('orderId');
 
 if (orderId) {
-    fetch(`http://localhost:3000/api/orders/${orderId}`)
+    fetch(`https://libreria3-0-back.onrender.com/api/orders/${orderId}`)
         .then(response => {
             console.log('Respuesta de la red recibida:', response);
             if (!response.ok) {
@@ -41,9 +41,3 @@ if (orderId) {
 document.getElementById("boton-volver").addEventListener("click", () => {
     window.location.href = "http://localhost:3000/tienda"; // Actualiza esta línea con la URL de tu tienda local
 });
-
-
-
-
-
-

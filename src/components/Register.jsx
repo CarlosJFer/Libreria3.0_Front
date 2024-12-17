@@ -12,7 +12,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/auth/register", {
+      await axios.post("https://libreria3-0-back.onrender.com/api/auth/register", {
         name,
         username,
         email,
