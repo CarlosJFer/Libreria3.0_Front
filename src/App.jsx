@@ -13,7 +13,7 @@ import UserForm from "./components/UserForm";
 import OrderList from "./components/OrderList";
 import OrderForm from "./components/OrderForm";
 import MisLibros from "./components/MisLibros";
-import Profile from "./components/Profile";
+import Profile from "./components/profile/Profile"
 
 import OrderFormUser from "./components/OrderFormUser";
 

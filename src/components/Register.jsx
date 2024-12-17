@@ -26,7 +26,7 @@ function Register() {
       case "password":
         if (!/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/.test(value)) {
           error =
-            "La contraseña debe tener al menos 6 caracteres, incluyendo una mayúscula, una minúscula y un número. No se permiten espacios.";
+            "La contraseña debe tener al menos 7 caracteres, incluyendo una mayúscula, una minúscula y un número. No se permiten espacios.";
         }
         break;
       default:
