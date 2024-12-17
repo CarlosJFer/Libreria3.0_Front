@@ -5,6 +5,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { AuthContext } from "./AuthContext";
 import { addCart } from "../redux/cartSlice";
+import { Link } from "react-router-dom";
 
 const groupBooks = (books, groupSize) => {
   const grouped = [];

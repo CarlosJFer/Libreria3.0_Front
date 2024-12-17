@@ -17,7 +17,7 @@
 
 .app {
   width: 100%; /* Cambia a 100% */
-  max-width: 1200px; /* Opcional: establece un ancho máximo */
+  max-width: 1500px; /* Opcional: establece un ancho máximo */
   padding: 0 15px; /* Añade padding para evitar que el contenido toque los bordes */
 }
 

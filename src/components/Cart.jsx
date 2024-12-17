@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDeleteForever } from "react-icons/md";
 import { clearCart, removeFromCart, updateQuantity } from "../redux/cartSlice";
-import { Link, useParams } from "react-router-dom";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { Link, useParams, useLocation } from "react-router-dom";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { selectFormattedCartItems } from "../redux/selectors"; // Importar el selector memoizado
 
 // Inicializar Mercado Pago con la clave API desde las variables de entorno
@@ -19,15 +19,19 @@ function Cart({ isAuthenticated, isAdmin }) {
   const createPreference = async () => {
     const token = localStorage.getItem("token"); // Obtener el token del almacenamiento local
     try {
-      const response = await axios.post('https://libreria3-0-back.onrender.com/create_preference', {
-        items: cart, // Enviar los items con la estructura correcta
-        metodoPago: 'Tarjeta de Crédito' // Asegúrate de enviar el método de pago también
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        "https://libreria3-0-back.onrender.com/create_preference",
+        {
+          items: cart, // Enviar los items con la estructura correcta
+          metodoPago: "Tarjeta de Crédito", // Asegúrate de enviar el método de pago también
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       const { id } = response.data;
       return id;
     } catch (error) {
@@ -42,6 +46,7 @@ function Cart({ isAuthenticated, isAdmin }) {
   };
 
   const { id } = useParams();
+  const location = useLocation();
 
   const handleRemove = (id) => {
     dispatch(removeFromCart(id));
@@ -59,6 +64,8 @@ function Cart({ isAuthenticated, isAdmin }) {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
+  const isCartPage = location.pathname === `/cart/${id}`;
 
   return (
     <div className="container mt-4 w-80">
@@ -128,26 +135,34 @@ function Cart({ isAuthenticated, isAdmin }) {
               >
                 Vaciar
               </button>
-              <Link className="btn btn-success m-2">Comprar</Link>
-              <div>
-                <button onClick={handleBuy} className="btn btn-primary">Pagar</button>
-                {
-                  preferenceId && (
-                    <Wallet
-                    initialization={{
-                      preferenceId : preferenceId,
-                      redirectMode : 'blank',
-                    }}
-                    />
-                  )
-                }
-              </div>
+              {isCartPage ? (
+                <>
+                  <Link className="btn btn-success m-2">Comprar</Link>
+                  <div>
+                    <button onClick={handleBuy} className="btn btn-primary">
+                      Pagar
+                    </button>
+                    {preferenceId && (
+                      <Wallet
+                        initialization={{
+                          preferenceId: preferenceId,
+                          redirectMode: "blank",
+                        }}
+                      />
+                    )}
+                  </div>
+                </>
+              ) : (
+                <Link to={`/cart/${id}`} className="btn btn-primary m-2">
+                  Ir al carrito
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-      </div>
       )}
     </div>
   );
-};
+}
 
 export default Cart;
