@@ -1,0 +1,25 @@
+/* Fondo transparente para todo el contenedor de las pestañas */
+.nav-tabs {
+    background-color: transparent;  /* Fondo transparente */
+  }
+  
+  /* Estilo para las pestañas no activas (con fondo negro y texto blanco) */
+  .nav-tabs .nav-link {
+    background-color: black;  /* Fondo negro para las pestañas no activas */
+    color: white;  /* Texto blanco en las pestañas no activas */
+    border: none;  /* Quitar borde (opcional) */
+  }
+  
+  /* Estilo para la pestaña activa (con fondo negro y texto blanco) */
+  .nav-tabs .nav-link.active {
+    background-color: white;  
+    color: black !important;  
+    border: none;  /* Quitar borde (opcional) */
+  }
+  
+  /* Cambiar el fondo de la pestaña al pasar el mouse (opcional) */
+  .nav-tabs .nav-link:hover {
+    background-color: #444;  /* Gris oscuro para las pestañas al pasar el mouse */
+    color: white;  /* Texto blanco al pasar el mouse */
+  }
+  

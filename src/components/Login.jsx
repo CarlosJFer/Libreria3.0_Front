@@ -22,6 +22,7 @@ function Login() {
 
       const { token, user } = response.data;
       localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(user));
       login(user);
       console.log(user);
       navigate(`/${user._id}`);

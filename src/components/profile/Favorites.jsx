@@ -3,7 +3,7 @@ import { Card, ListGroup } from "react-bootstrap";
 
 function Favorites({ favorites = [] }) {
   if (favorites.length === 0) {
-    return <p>No tienes libros favoritos aún.</p>;
+    return <p style={{ color: 'white' }}>No tienes libros favoritos aún.</p>;
   }
 
   return (
