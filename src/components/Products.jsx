@@ -105,7 +105,8 @@ function Products({ selectedGenres, searchQuery }) {
                   //   product.imgPortada
                   // }
                   src={
-                    product.imgPortada || "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                    product.imgPortada ||
+                    "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
                   }
                   alt="Portada"
                   className="card-img-top img-fluid"
@@ -178,6 +179,7 @@ function Products({ selectedGenres, searchQuery }) {
             <div className="d-flex">
               <img
                 src={
+                  selectedProduct.imgPortada ||
                   "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
                 }
                 alt="Portada"
