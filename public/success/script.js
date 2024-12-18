@@ -2,10 +2,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const orderId = urlParams.get('orderId');
 
+console.log('URL Parameters:', urlParams.toString());
+console.log('Order ID:', orderId);
+
 if (orderId) {
+    console.log('Fetching order details from:', `https://libreriaback.onrender.com/api/orders/${orderId}`);
+    
     fetch(`https://libreriaback.onrender.com/api/orders/${orderId}`)
         .then(response => {
-            console.log('Respuesta de la red recibida:', response);
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
             if (!response.ok) {
                 throw new Error('Error en la respuesta de la red');
             }
@@ -39,5 +45,5 @@ if (orderId) {
 
 // Agregar un evento al botón para volver a la tienda
 document.getElementById("boton-volver").addEventListener("click", () => {
-    window.location.href = "https://libreria3-0.onrender.com/"; // Actualiza esta línea con la URL de tu tienda local
+    window.location.href = "/"; // ruta relativa
 });
