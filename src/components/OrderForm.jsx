@@ -35,7 +35,7 @@ function OrderForm() {
 
     if (id) {
       axios
-        .get(`http://localhost:3000/api/order/${id}`)
+        .get(`https://libreriaback.onrender.com/api/order/${id}`)
         .then((res) => {
           setOrderData({
             ...res.data,
@@ -45,7 +45,7 @@ function OrderForm() {
         })
         .catch((err) => console.error(err));
     } else {
-      axios("http://localhost:3000/api/products")
+      axios("https://libreriaback.onrender.com/api/products")
         .then((res) => dispatch(getProducts(res.data)))
         .catch((err) => console.error(err));
     }
@@ -95,13 +95,13 @@ function OrderForm() {
     try {
       if (id) {
         const response = await axios.put(
-          `http://localhost:3000/api/order/${id}`,
+          `https://libreriaback.onrender.com/api/order/${id}`,
           orderData
         );
         dispatch(updateOrder(response.data));
       } else {
         const response = await axios.post(
-          "http://localhost:3000/api/order",
+          "https://libreriaback.onrender.com/api/order",
           orderData
         );
         dispatch(createOrder(response.data));

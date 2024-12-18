@@ -12,7 +12,7 @@ function Users() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios("http://localhost:3000/api/users", {
+    axios("https://libreriaback.onrender.com/api/users", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => dispatch(getUsers(res.data)))
@@ -23,7 +23,7 @@ function Users() {
     const token = localStorage.getItem("token");
     if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
       axios
-        .delete(`http://localhost:3000/api/users/${_id}`, {
+        .delete(`https://libreriaback.onrender.com/api/users/${_id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => {

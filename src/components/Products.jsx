@@ -17,14 +17,14 @@ function Products({ selectedGenres, searchQuery }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    axios("http://localhost:3000/api/products")
+    axios("https://libreriaback.onrender.com/api/products")
       .then((res) => dispatch(getProducts(res.data)))
       .catch((err) => console.error(err));
   }, [dispatch]);
 
   const handlerDelete = (_id) => {
     axios
-      .delete(`http://localhost:3000/api/products/${_id}`)
+      .delete(`https://libreriaback.onrender.com/api/products/${_id}`)
       .then(() => {
         dispatch(deleteProduct(_id));
       })

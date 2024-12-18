@@ -73,13 +73,13 @@ const OrderForm = () => {
 
       if (id) {
         const response = await axios.put(
-          `http://localhost:3000/api/order/${id}`,
+          `https://libreriaback.onrender.com/api/order/${id}`,
           orderData
         );
         dispatch(updateOrder(response.data));
       } else {
         const response = await axios.post(
-          "http://localhost:3000/api/order",
+          "https://libreriaback.onrender.com/api/order",
           orderData
         );
         dispatch(createOrder(response.data));

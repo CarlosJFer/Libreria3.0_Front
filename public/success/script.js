@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const orderId = urlParams.get('orderId');
 
 if (orderId) {
-    fetch(`http://localhost:3000/api/orders/${orderId}`)
+    fetch(`https://libreriaback.onrender.com/api/orders/${orderId}`)
         .then(response => {
             console.log('Respuesta de la red recibida:', response);
             if (!response.ok) {

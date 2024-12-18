@@ -22,7 +22,7 @@ function UserForm() {
     const token = localStorage.getItem("token");
     if (id) {
       axios
-        .get(`http://localhost:3000/api/users/${id}`, {
+        .get(`https://libreriaback.onrender.com/api/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUserData(res.data))
@@ -49,7 +49,7 @@ function UserForm() {
     try {
       if (id) {
         const response = await axios.put(
-          `http://localhost:3000/api/users/${id}`,
+          `https://libreriaback.onrender.com/api/users/${id}`,
           userData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -58,7 +58,7 @@ function UserForm() {
         dispatch(updateUser(response.data));
       } else {
         const response = await axios.post(
-          "http://localhost:3000/api/users",
+          "https://libreriaback.onrender.com/api/users",
           userData,
           {
             headers: { Authorization: `Bearer ${token}` },

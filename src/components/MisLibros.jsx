@@ -18,7 +18,7 @@ function MisLibros() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    axios("http://localhost:3000/api/products") // Se realiza consulta de users a la api.
+    axios("https://libreriaback.onrender.com/api/products") // Se realiza consulta de users a la api.
       .then((res) => dispatch(getProducts(res.data)))
       .catch((err) => console.error(err));
   }, [dispatch]);
