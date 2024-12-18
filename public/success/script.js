@@ -39,5 +39,5 @@ if (orderId) {
 
 // Agregar un evento al botón para volver a la tienda
 document.getElementById("boton-volver").addEventListener("click", () => {
-    window.location.href = ""; // Actualiza esta línea con la URL de tu tienda local
+    window.location.href = "https://libreria3-0.onrender.com/"; // Actualiza esta línea con la URL de tu tienda local
 });
