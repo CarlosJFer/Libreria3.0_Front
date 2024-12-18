@@ -105,7 +105,7 @@ function Products({ selectedGenres, searchQuery }) {
                   //   product.imgPortada
                   // }
                   src={
-                    "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
+                    product.imgPortada || "https://marketplace.canva.com/EAFZMFdpwVE/1/0/1131w/canva-portada-de-revista-de-ciencia-elegante-moderno-azul-y-amarillo-IgOJHth1QBk.jpg"
                   }
                   alt="Portada"
                   className="card-img-top img-fluid"

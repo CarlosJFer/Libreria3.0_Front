@@ -17,7 +17,7 @@ function ProfileForm ({ userData, onSave }) {
   });
 
    // Almacenar los datos iniciales en el formulario
-   const enableEditing = () => {
+  const enableEditing = () => {
     reset(userData); // Resetea el formulario con los datos actuales
     setIsEditing(true); // Activar edición
   };
@@ -30,7 +30,13 @@ function ProfileForm ({ userData, onSave }) {
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Mi Perfil</h2>
+      <div
+            className="card shadow border-1 border border-secondary rounded"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.9)" }}
+          >
+            <br />
+      <h2 className="text-center mb-4 text-white">Mi información personal</h2>
+      <div className="d-flex justify-content-center mb-3">
       {!isEditing && ( // Botón Editar fuera del formulario
         <button
           type="button"
@@ -40,6 +46,7 @@ function ProfileForm ({ userData, onSave }) {
           Editar
         </button>
       )}
+      </div>
       <div className="row justify-content-center">
       <div className="col-md-6">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -72,14 +79,14 @@ function ProfileForm ({ userData, onSave }) {
         </div>
         
         <div className="mb-3">
-        <label className="form-label">Teléfono:</label>
+        <label className="form-label">Usuario:</label>
           <input
             type="text"
-            {...register("phone", {
-              required: "El teléfono es obligatorio",
+            {...register("username", {
+              required: "El usuario es obligatorio",
               minLength: {
-                value: 10,
-                message: "El teléfono debe tener al menos 10 dígitos",
+                value: 3,
+                message: "El usuario debe tener al menos 3 dígitos",
               },
             })}
             disabled={!isEditing}
@@ -95,7 +102,7 @@ function ProfileForm ({ userData, onSave }) {
             {...register("password", {
               required: "La contraseña es obligatoria",
               minLength: {
-                value: 6,
+                value: /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/,
                 message: "La contraseña debe tener al menos 6 caracteres",
               },
             })}
@@ -129,6 +136,7 @@ function ProfileForm ({ userData, onSave }) {
           </button>
         )}
       </form>
+    </div>
     </div>
     </div>
     </div>

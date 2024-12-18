@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Login from "./Login";
 import "../styles/NavBar.css";
 import { FaShoppingCart } from "react-icons/fa";
@@ -70,7 +70,7 @@ const Navbar = () => {
                       <li className="nav-item">
                         <NavLink
                           className="nav-link"
-                          to={`/perfil/${user._id}`}
+                          to={`/profile/${user._id}`}
                         >
                           Perfil
                         </NavLink>

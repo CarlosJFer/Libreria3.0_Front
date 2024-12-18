@@ -1,15 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import dotenv from "dotenv";
 
-// https://vitejs.dev/config/
+dotenv.config();
+
 export default defineConfig({
   plugins: [react()],
-  root: "", // Indica a Vite dónde buscar el index.html
   build: {
-    outDir: "../dist", // Define la salida relativa al nuevo root
+    outDir: "dist", // Puedes usar "dist" sin el ../ para mantenerlo en la raíz del proyecto
     emptyOutDir: true, // Limpia el directorio de salida antes de construir
   },
   server: {
     open: true, // Abre automáticamente el navegador
   },
+  define: {
+    'process.env': process.env
+  }
 });
