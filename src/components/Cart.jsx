@@ -137,7 +137,7 @@ function Cart({ isAuthenticated, isAdmin }) {
               </button>
               {isCartPage ? (
                 <>
-                  <Link className="btn btn-success m-2">Comprar</Link>
+                  
                   <div>
                     <button onClick={handleBuy} className="btn btn-primary">
                       Pagar
